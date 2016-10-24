@@ -10,4 +10,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.dllo.foodpie.WelcomeActivity">
 
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/img_wel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>

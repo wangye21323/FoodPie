@@ -25,105 +25,58 @@
         android:orientation="horizontal"
         android:layout_height="0dp">
 
-        <RadioGroup
-            android:id="@+id/rg_main"
-            android:orientation="horizontal"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <RadioGroup
+                android:id="@+id/rg_main"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                <RadioButton
+                    android:layout_weight="1"
+                    android:id="@+id/rb_food"
+                    android:layout_gravity="center"
+                    android:button="@null"
+                    android:textColor="@color/main_text_color"
+                    android:layout_width="0dp"
+                    android:drawableTop="@drawable/mainfood"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:text="食物百科"/>
 
-                    <RadioButton
-                        android:layout_gravity="center"
-                        android:id="@+id/rb_food"
-                        android:button="@null"
-                        android:layout_width="wrap_content"
-                        android:background="@drawable/mainfood"
-                        android:layout_weight="2.6"
-                        android:layout_height="0dp"/>
-                    <TextView
-                        android:id="@+id/tv_main_food"
-                        android:layout_gravity="center"
-                        android:text="食物百科"
-                        android:background="@color/main_text_color"
-                        android:textSize="15sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                <RadioButton
+                    android:layout_gravity="center"
+                    android:id="@+id/rb_eat"
+                    android:button="@null"
+                    android:textColor="@color/main_text_color"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:drawableTop="@drawable/maineat"
+                    android:text="逛吃"
+                    android:layout_height="match_parent"/>
 
-                </LinearLayout>
+                <RadioButton
 
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-                    <RadioButton
-                        android:id="@+id/rb_eat"
-                        android:button="@null"
-                        android:layout_width="wrap_content"
-                        android:background="@drawable/maineat"
-                        android:layout_weight="2.6"
-                        android:layout_height="0dp"/>
-                    <TextView
-                        android:text="逛吃"
-                        android:textSize="15sp"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
+                    android:id="@+id/rb_my"
+                    android:button="@null"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:drawableTop="@drawable/mainmy"
+                    android:text="我的"
+                    android:textColor="@color/main_text_color"
+                    android:layout_height="match_parent"/>
 
 
+            </RadioGroup>
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-                    <RadioButton
-                        android:id="@+id/rb_my"
-                        android:button="@null"
-                        android:layout_width="wrap_content"
-                        android:background="@drawable/mainmy"
-                        android:layout_weight="2.6"
-                        android:layout_height="0dp"/>
-                    <TextView
-                        android:text="我的"
-                        android:textSize="15sp"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
+        </RelativeLayout>
 
 
-
-            </RelativeLayout>
-        </RadioGroup>
 
     </LinearLayout>
 
