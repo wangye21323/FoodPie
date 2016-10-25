@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--给每一页加上自定义标题栏-->
+    <style name="customTitle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTitleSize">48dp</item>
+
+    </style>
 </resources>

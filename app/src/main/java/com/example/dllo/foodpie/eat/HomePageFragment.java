@@ -15,6 +15,6 @@ public class HomePageFragment extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getContext()).inflate(R.layout.fragmenthomepage, null);
+        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_homepage, null);
     }
 }

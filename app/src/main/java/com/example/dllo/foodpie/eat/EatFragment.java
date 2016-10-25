@@ -19,7 +19,7 @@ public class EatFragment extends BaseFragment{
 
     @Override
     protected int getLayout() {
-        return R.layout.fragmenteat;
+        return R.layout.fragment_eat;
     }
 
     @Override

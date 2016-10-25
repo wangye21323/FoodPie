@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@mipmap/img_my_bg"
+        android:layout_width="match_parent"
+        android:layout_weight="1.4"
+        android:layout_height="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:text="我的"
+                android:textColor="#FFFF"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageButton
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:src="@mipmap/ic_my_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="85dp"
+                android:layout_height="116dp">
+                <com.example.dllo.foodpie.my.CircleImageView
+                    android:src="@mipmap/ic_analyse_default"
+                    app:isCircle="true"
+                    app:border_color = "#f1f"
+                    app:border_width="2dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"/>
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:text="点击登录"
+                    android:textSize="15sp"
+                    android:textColor="#FFFF"
+                    android:background="@drawable/buttonstyle"
+                    android:layout_width="70dp"
+                    android:layout_height="32dp"/>
+            </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_weight="2"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:layout_height="0dp">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll_my_picu"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/img_my_camera"
+                android:src="@mipmap/ic_my_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="13dp"
+                android:text="我的照片"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/img_my_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_arrow_right_default"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        
+        <!--设置下划线-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#9E9595"/>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll_my_collect"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/img_my_collect"
+                android:src="@mipmap/ic_my_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="13dp"
+                android:text="我的收藏"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/img_my_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:src="@mipmap/ic_arrow_right_default"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <!--设置下划线-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#9E9595"/>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll_my_data"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/img_my_data"
+                android:src="@mipmap/ic_my_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="13dp"
+                android:text="上传食物数据"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/img_my_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_arrow_right_default"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <!--设置下划线-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#9E9595"/>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll_my_list"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:id="@+id/img_my_list"
+                android:src="@mipmap/nknown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="13dp"
+                android:text="我的订单"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/img_my_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:src="@mipmap/ic_arrow_right_default"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
