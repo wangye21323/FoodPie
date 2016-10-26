@@ -6,6 +6,7 @@ import com.example.dllo.foodpie.base.BaseActivity;
 public class LoadActivity extends BaseActivity {
 
 
+
     @Override
     protected int getLayout() {
         return R.layout.activity_load;

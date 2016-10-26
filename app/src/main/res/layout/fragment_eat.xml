@@ -15,7 +15,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_eat"
         app:tabSelectedTextColor="#FF5A5F"
-        app:tabIndicatorColor="#0f0"
+        app:tabIndicatorColor="#f00"
         app:tabIndicatorHeight="3dp"
 
         android:layout_width="match_parent"

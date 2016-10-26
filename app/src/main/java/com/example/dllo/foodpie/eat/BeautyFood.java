@@ -1,20 +1,29 @@
 package com.example.dllo.foodpie.eat;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.RecyclerView;
 
 import com.example.dllo.foodpie.R;
+import com.example.dllo.foodpie.base.BaseFragment;
 
 /**
  * Created by dllo on 16/10/24.
  */
-public class BeautyFood extends android.support.v4.app.Fragment {
-    @Nullable
+public class BeautyFood extends BaseFragment{
+
+    private RecyclerView rvBeautyFood;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_beautyfood, null);
+    protected int getLayout() {
+        return R.layout.fragment_beautyfood;
+    }
+
+    @Override
+    protected void initView() {
+        rvBeautyFood = bindView(R.id.rv_eat_beautyfood);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }
