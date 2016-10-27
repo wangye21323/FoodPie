@@ -34,7 +34,7 @@ public class EatFragment extends BaseFragment{
         arrayList.add(new HomePageFragment());
         arrayList.add(new TestFragment());
         arrayList.add(new KnowledgeFragment());
-        arrayList.add(new BeautyFood());
+        arrayList.add(new BeautyFoodFragment());
 
         EatVpAdapter adapter = new EatVpAdapter(getChildFragmentManager());
         vpEat.setAdapter(adapter);

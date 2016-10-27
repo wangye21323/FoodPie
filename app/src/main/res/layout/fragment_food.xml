@@ -11,7 +11,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:background="@mipmap/img_home_bg">
 
             <TextView
@@ -49,41 +49,44 @@
                     android:src="@mipmap/ic_home_search"/>
 
                 <TextView
-                    android:text="请输入食物名称"
-                    android:layout_marginLeft="8dp"
-                    android:textColor="#FF5A5F"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/img_food_img"/>
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/img_food_img"
+                    android:text="请输入食物名称"
+                    android:textColor="#FF5A5F"/>
             </RelativeLayout>
         </RelativeLayout>
 
         <LinearLayout
-            android:paddingBottom="15dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp">
+
             <LinearLayout
-                android:background="#fff"
-                android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:orientation="vertical">
+
                 <ImageButton
-                    android:src="@mipmap/ic_home_analysis"
-                    android:background="@null"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@mipmap/ic_home_analysis"/>
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="饮食分析"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="饮食分析"/>
             </LinearLayout>
 
             <!--设置下划线-->
@@ -93,22 +96,24 @@
                 android:background="#9E9595"/>
 
             <LinearLayout
-                android:background="#fff"
-                android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:orientation="vertical">
+
                 <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@mipmap/ic_home_compare"
                     android:background="@null"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@mipmap/ic_home_compare"/>
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="搜索对比"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="搜索对比"/>
             </LinearLayout>
 
             <!--设置下划线-->
@@ -118,108 +123,126 @@
                 android:background="#9E9595"/>
 
             <LinearLayout
-                android:background="#fff"
-                android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:orientation="vertical">
+
                 <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
-                    android:src="@mipmap/ic_home_scan_compare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@mipmap/ic_home_scan_compare"/>
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="扫码对比"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="扫码对比"/>
             </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
-            android:background="#fff"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_centerHorizontal="true"
-                android:text="食物分类"
-                android:layout_gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_back"/>
+            <RelativeLayout
+                android:layout_marginTop="8dp"
+                android:id="@+id/text"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:layout_centerVertical="true"
+                    android:text="食物分类"
+                    />
+            </RelativeLayout>
+
+            <com.example.dllo.foodpie.weiget.MyGridView
+                android:id="@+id/gv_food_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:numColumns="3">
+
+            </com.example.dllo.foodpie.weiget.MyGridView>
         </RelativeLayout>
-
-        <!--设置下划线-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#9E9595"/>
-
-        <GridView
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:id="@+id/gv_food_type"
-            android:layout_width="match_parent"
-            android:numColumns="3"
-            android:layout_height="wrap_content">
-
-        </GridView>
 
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="#fff"
             android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingRight="40dp">
+
             <TextView
-                android:layout_centerHorizontal="true"
-                android:text="热门品牌"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:text="热门品牌"
                 />
         </RelativeLayout>
 
         <!--设置下划线-->
         <ImageView
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:background="#9E9595"/>
-
-
-        <GridView
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:background="#9E9595"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"/>
+
+        <com.example.dllo.foodpie.weiget.MyGridView
             android:id="@+id/gv_food_brand"
             android:layout_width="match_parent"
-            android:numColumns="3"
-            android:layout_height="wrap_content">
-
-        </GridView>
-
-        <RelativeLayout
-            android:background="#fff"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:numColumns="3">
+
+        </com.example.dllo.foodpie.weiget.MyGridView>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#fff">
+
             <TextView
-                android:layout_centerHorizontal="true"
-                android:text="连锁餐饮"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:text="连锁餐饮"
                 />
         </RelativeLayout>
 
@@ -231,17 +254,15 @@
             android:layout_marginRight="20dp"
             android:background="#9E9595"/>
 
-
-        <GridView
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+        <com.example.dllo.foodpie.weiget.MyGridView
             android:id="@+id/gv_food_chain"
             android:layout_width="match_parent"
-            android:numColumns="3"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:numColumns="3">
 
-        </GridView>
-
+        </com.example.dllo.foodpie.weiget.MyGridView>
 
     </LinearLayout>
 

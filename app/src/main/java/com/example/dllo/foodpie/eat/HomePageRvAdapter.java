@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
-import com.example.dllo.foodpie.Web.VolleySingleton;
+import com.example.dllo.foodpie.databean.HomePageBean;
+import com.example.dllo.foodpie.web.VolleySingleton;
 
 /**
  * Created by dllo on 16/10/26.
@@ -25,6 +26,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
 
     public void setArrayList(HomePageBean arrayList) {
         this.arrayList = arrayList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -38,18 +40,19 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.publisher.setText(arrayList.getFeeds().get(position).getPublisher());
         holder.title.setText(arrayList.getFeeds().get(position).getTitle());
-
-        // Like_ct 是个int形的数据  你的like只能放String型的数据  你可以把int型转换成String型  代码百度上有的是
         holder.like.setText(String.valueOf(arrayList.getFeeds().get(position).getLike_ct()));
+        holder.desciption.setText(arrayList.getFeeds().get(position).getDescription());
 
-        String imgUrl = arrayList.getFeeds().get(position).getCard_image();
-        VolleySingleton.getInstance().getImage(imgUrl, holder.card);
+        String imgUrlCard = arrayList.getFeeds().get(position).getCard_image();
+        VolleySingleton.getInstance().getImage(imgUrlCard, holder.card);
+        String imgUrlAvatar = arrayList.getFeeds().get(position).getPublisher_avatar();
+        VolleySingleton.getInstance().getImage(imgUrlAvatar, holder.avatar);
 
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.getFeeds().size();
+        return arrayList.getFeeds() == null ? 0 : arrayList.getFeeds().size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -59,6 +62,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
         private final ImageView avatar;
         private final TextView publisher;
         private final TextView like;
+        private final TextView desciption;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +71,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
             avatar = (ImageView) itemView.findViewById(R.id.img_eat_homepage_avatar);
             publisher = (TextView) itemView.findViewById(R.id.tv_eat_homepage_publisher);
             like = (TextView) itemView.findViewById(R.id.tv_eat_homepage_like);
+            desciption = (TextView) itemView.findViewById(R.id.tv_eat_homepage_description);
         }
     }
 }

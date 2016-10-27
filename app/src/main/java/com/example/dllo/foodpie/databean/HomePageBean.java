@@ -1,4 +1,4 @@
-package com.example.dllo.foodpie.eat;
+package com.example.dllo.foodpie.databean;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.dllo.foodpie.my;
+package com.example.dllo.foodpie.weiget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

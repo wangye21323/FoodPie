@@ -1,14 +1,16 @@
 package com.example.dllo.foodpie.eat;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.dllo.foodpie.R;
-import com.example.dllo.foodpie.Web.GsonRequest;
-import com.example.dllo.foodpie.Web.VolleySingleton;
+import com.example.dllo.foodpie.web.GsonRequest;
+import com.example.dllo.foodpie.web.TheValues;
+import com.example.dllo.foodpie.web.VolleySingleton;
 import com.example.dllo.foodpie.base.BaseFragment;
+import com.example.dllo.foodpie.databean.HomePageBean;
 
 /**
  * Created by dllo on 16/10/24.
@@ -16,7 +18,9 @@ import com.example.dllo.foodpie.base.BaseFragment;
 public class HomePageFragment extends BaseFragment{
 
     private RecyclerView rvHomePage;
-    private String url = "http://food.boohee.com/fb/v1/feeds/category_feed?page=1&category=1&per=10";
+    private HomePageRvAdapter adapter;
+    private GridLayoutManager manager;
+
     @Override
     protected int getLayout() {
         return R.layout.fragment_homepage;
@@ -25,22 +29,20 @@ public class HomePageFragment extends BaseFragment{
     @Override
     protected void initView() {
         rvHomePage = bindView(R.id.rv_eat_homepage);
+        adapter = new HomePageRvAdapter(getActivity());
+        rvHomePage.setAdapter(adapter);
+
     }
 
     @Override
     protected void initData() {
-
-
-        GsonRequest<HomePageBean> gsonRequest = new GsonRequest<HomePageBean>(HomePageBean.class, url,
+        
+        GsonRequest<HomePageBean> gsonRequest = new GsonRequest<HomePageBean>(HomePageBean.class, TheValues.EAT_HOMEPAGE,
                 new Response.Listener<HomePageBean>() {
                     @Override
                     public void onResponse(HomePageBean response) {
-                        //请求成功方法
-                        HomePageRvAdapter adapter = new HomePageRvAdapter(getActivity());
                         adapter.setArrayList(response);
-                        rvHomePage.setAdapter(adapter);
-
-                        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                        manager = new GridLayoutManager(getActivity(), 2);
                         rvHomePage.setLayoutManager(manager);
                     }
                 }, new Response.ErrorListener() {

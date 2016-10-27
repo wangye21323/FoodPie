@@ -8,9 +8,9 @@ import com.example.dllo.foodpie.base.BaseFragment;
 /**
  * Created by dllo on 16/10/24.
  */
-public class BeautyFood extends BaseFragment{
+public class BeautyFoodFragment extends BaseFragment{
 
-    private RecyclerView rvBeautyFood;
+    private RecyclerView beautyFoodRv;
 
     @Override
     protected int getLayout() {
@@ -19,7 +19,7 @@ public class BeautyFood extends BaseFragment{
 
     @Override
     protected void initView() {
-        rvBeautyFood = bindView(R.id.rv_eat_beautyfood);
+        beautyFoodRv = bindView(R.id.rv_eat_beautyfood);
     }
 
     @Override

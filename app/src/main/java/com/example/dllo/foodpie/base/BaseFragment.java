@@ -1,5 +1,6 @@
 package com.example.dllo.foodpie.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,14 @@ import com.example.dllo.foodpie.R;
  * Created by dllo on 16/10/21.
  */
 public abstract class BaseFragment extends Fragment {
+
+    protected Context mContext;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
