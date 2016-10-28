@@ -152,13 +152,13 @@
             android:orientation="vertical">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="450dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentTop="true"
                 android:scaleType="fitXY"
-                android:src="@mipmap/ic_back"/>
+                android:src="@drawable/ic_back"/>
             <RelativeLayout
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -166,7 +166,6 @@
                 android:layout_marginRight="20dp"
                 android:background="@null"
                 >
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,90 +178,107 @@
             </RelativeLayout>
 
             <com.example.dllo.foodpie.weiget.MyGridView
+                android:layout_marginTop="27dp"
                 android:id="@+id/gv_food_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
                 android:background="@null"
                 android:numColumns="3">
 
             </com.example.dllo.foodpie.weiget.MyGridView>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#fff"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:text="热门品牌"
-                />
-        </RelativeLayout>
-
-        <!--设置下划线-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#9E9595"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"/>
-
-        <com.example.dllo.foodpie.weiget.MyGridView
-            android:id="@+id/gv_food_brand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:numColumns="3">
-
-        </com.example.dllo.foodpie.weiget.MyGridView>
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#fff">
-
-            <TextView
-                android:layout_width="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_back"/>
+            <RelativeLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:text="连锁餐饮"
-                />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#fff"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:text="热门品牌"
+                    />
+            </RelativeLayout>
+
+            <com.example.dllo.foodpie.weiget.MyGridView
+                android:layout_marginTop="27dp"
+                android:id="@+id/gv_food_brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:numColumns="3">
+
+            </com.example.dllo.foodpie.weiget.MyGridView>
         </RelativeLayout>
 
-        <!--设置下划线-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#9E9595"/>
 
-        <com.example.dllo.foodpie.weiget.MyGridView
-            android:id="@+id/gv_food_chain"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:numColumns="3">
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_back"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#fff">
 
-        </com.example.dllo.foodpie.weiget.MyGridView>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:text="连锁餐饮"
+                    />
+            </RelativeLayout>
+
+            <com.example.dllo.foodpie.weiget.MyGridView
+                android:layout_marginTop="27dp"
+                android:id="@+id/gv_food_chain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:numColumns="3">
+
+            </com.example.dllo.foodpie.weiget.MyGridView>
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 
