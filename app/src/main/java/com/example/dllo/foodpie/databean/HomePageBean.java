@@ -1,5 +1,7 @@
 package com.example.dllo.foodpie.databean;
 
+import android.util.Log;
+
 import java.util.List;
 
 /**
@@ -28,6 +30,13 @@ public class HomePageBean {
      */
 
     private List<FeedsBean> feeds;
+
+    public void addData(List<FeedsBean> feeds){
+        for (int i = 0; i < feeds.size(); i++) {
+            this.feeds.add(this.feeds.size() , feeds.get(i));
+            Log.d("HomePageBean", "this.feeds.size():" + this.feeds.size());
+        }
+    }
 
     public String getPage() {
         return page;

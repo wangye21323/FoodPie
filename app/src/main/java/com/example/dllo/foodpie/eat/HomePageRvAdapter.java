@@ -26,8 +26,15 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
 
     public void setArrayList(HomePageBean arrayList) {
         this.arrayList = arrayList;
+        notifyItemChanged(this.arrayList.getFeeds().size());
+    }
+
+    public void addBeanData(HomePageBean arrayList){
+        this.arrayList.addData(arrayList.getFeeds());
+//        notifyItemChanged(this.arrayList.getFeeds().size());
         notifyDataSetChanged();
     }
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,6 +61,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
     public int getItemCount() {
         return arrayList.getFeeds() == null ? 0 : arrayList.getFeeds().size();
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 

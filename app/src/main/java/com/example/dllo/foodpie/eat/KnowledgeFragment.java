@@ -32,6 +32,7 @@ public class KnowledgeFragment extends BaseFragment{
         rvKnowledge = bindView(R.id.rv_eat_knowledge);
         adapter = new KnowledgeRvAdapter(MyApp.getContext());
         rvKnowledge.setAdapter(adapter);
+
     }
 
     @Override
