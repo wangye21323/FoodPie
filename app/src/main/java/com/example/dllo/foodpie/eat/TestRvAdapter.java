@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
-import com.example.dllo.foodpie.web.VolleySingleton;
 import com.example.dllo.foodpie.databean.TestBean;
+import com.example.dllo.foodpie.web.VolleySingleton;
 
 /**
  * Created by dllo on 16/10/26.
@@ -24,8 +24,14 @@ public class TestRvAdapter extends RecyclerView.Adapter<TestRvAdapter.MyViewHold
         this.context = context;
     }
 
+
+
     public void setTestBean(TestBean testBean) {
         this.testBean = testBean;
+        notifyDataSetChanged();
+    }
+    public void addBeanData(TestBean testBean){
+        this.testBean.addData(testBean.getFeeds());
         notifyDataSetChanged();
     }
 

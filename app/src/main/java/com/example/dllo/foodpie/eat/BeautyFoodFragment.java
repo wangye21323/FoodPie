@@ -1,5 +1,7 @@
 package com.example.dllo.foodpie.eat;
 
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -9,6 +11,7 @@ import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.BeautyFoodBean;
 import com.example.dllo.foodpie.web.GsonRequest;
+import com.example.dllo.foodpie.web.SingleSimpleThreadPool;
 import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
@@ -20,7 +23,8 @@ public class BeautyFoodFragment extends BaseFragment {
 
     private PullLoadMoreRecyclerView beautyFoodRv;
     private BeautyFoodRvAdapter adapter;
-    int a = 0;
+    private int a = 1;
+    private ImageButton btn_beautyfood;
 
     @Override
     protected int getLayout() {
@@ -29,46 +33,23 @@ public class BeautyFoodFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
         beautyFoodRv = bindView(R.id.rv_eat_beautyfood);
         adapter = new BeautyFoodRvAdapter(MyApp.getContext());
-
-
         beautyFoodRv.setAdapter(adapter);
+        btn_beautyfood = bindView(R.id.btn_eat_beantyfood_top);
     }
 
     @Override
     protected void initData() {
-        GsonRequest<BeautyFoodBean> gsonRequest = new GsonRequest<BeautyFoodBean>(BeautyFoodBean.class, TheValues.EAT_BEAUTY,
-                new Response.Listener<BeautyFoodBean>() {
-                    @Override
-                    public void onResponse(BeautyFoodBean response) {
-                        adapter.setBeautyFoodBean(response);
-                        beautyFoodRv.setLinearLayout();
-                        //LinearLayoutManager manager = new LinearLayoutManager(MyApp.getContext());
-                        //beautyFoodRv.setLayoutManager(manager);
-                    }
-                }, new Response.ErrorListener() {
+        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        //第三步: 把请求放到请求队列里
-        VolleySingleton.getInstance().addRequest(gsonRequest);
-
-        beautyFoodRv.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(MyApp.getContext(), "下拉刷新", Toast.LENGTH_SHORT).show();
+            public void run() {
                 GsonRequest<BeautyFoodBean> gsonRequest = new GsonRequest<BeautyFoodBean>(BeautyFoodBean.class, TheValues.EAT_BEAUTY,
                         new Response.Listener<BeautyFoodBean>() {
                             @Override
                             public void onResponse(BeautyFoodBean response) {
                                 adapter.setBeautyFoodBean(response);
                                 beautyFoodRv.setLinearLayout();
-                                //LinearLayoutManager manager = new LinearLayoutManager(MyApp.getContext());
-                                //beautyFoodRv.setLayoutManager(manager);
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -77,23 +58,54 @@ public class BeautyFoodFragment extends BaseFragment {
                     }
                 });
                 //第三步: 把请求放到请求队列里
+                VolleySingleton.getInstance().addRequest(gsonRequest);
+            }
+        });
+        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                //上拉下拉方法
+                pullAndDownToFresh();
+            }
+        });
+        btn_beautyfood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                beautyFoodRv.scrollToTop();
+                Toast.makeText(mContext, "回到顶部", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void pullAndDownToFresh() {
+        beautyFoodRv.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
+            @Override
+            public void onRefresh() {
+                GsonRequest<BeautyFoodBean> gsonRequest = new GsonRequest<BeautyFoodBean>(BeautyFoodBean.class, TheValues.EAT_BEAUTY,
+                        new Response.Listener<BeautyFoodBean>() {
+                            @Override
+                            public void onResponse(BeautyFoodBean response) {
+                                adapter.setBeautyFoodBean(response);
+                                beautyFoodRv.setLinearLayout();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
                 VolleySingleton.getInstance().addRequest(gsonRequest);
                 beautyFoodRv.setPullLoadMoreCompleted();
             }
 
             @Override
             public void onLoadMore() {
-
-                Toast.makeText(MyApp.getContext(), "上拉加载", Toast.LENGTH_SHORT).show();
                 String url = "http://food.boohee.com/fb/v1/feeds/category_feed?page=" + (a + 1) + "" + "&category=4&per=10";
                 GsonRequest<BeautyFoodBean> gsonRequest = new GsonRequest<BeautyFoodBean>(BeautyFoodBean.class, url,
                         new Response.Listener<BeautyFoodBean>() {
                             @Override
                             public void onResponse(BeautyFoodBean response) {
-                                adapter.setBeautyFoodBean(response);
+                                adapter.addBeanData(response);
                                 beautyFoodRv.setLinearLayout();
-                                //LinearLayoutManager manager = new LinearLayoutManager(MyApp.getContext());
-                                //beautyFoodRv.setLayoutManager(manager);
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -101,12 +113,11 @@ public class BeautyFoodFragment extends BaseFragment {
 
                     }
                 });
-                //第三步: 把请求放到请求队列里
                 VolleySingleton.getInstance().addRequest(gsonRequest);
-                a++;
                 beautyFoodRv.setPullLoadMoreCompleted();
+                beautyFoodRv.setFooterViewText("");
+                a++;
             }
         });
-
     }
 }

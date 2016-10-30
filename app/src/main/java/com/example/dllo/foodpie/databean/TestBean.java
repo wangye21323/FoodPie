@@ -28,6 +28,12 @@ public class TestBean {
 
     private List<FeedsBean> feeds;
 
+    public void addData(List<FeedsBean> feeds){
+        for (int i = 0; i < feeds.size(); i++) {
+            this.feeds.add(this.feeds.size() , feeds.get(i));
+        }
+    }
+
     public String getPage() {
         return page;
     }
@@ -51,6 +57,7 @@ public class TestBean {
     public void setFeeds(List<FeedsBean> feeds) {
         this.feeds = feeds;
     }
+
 
     public static class FeedsBean {
         private int item_id;

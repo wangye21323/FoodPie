@@ -1,7 +1,9 @@
 package com.example.dllo.foodpie.eat;
 
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -10,16 +12,20 @@ import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.KnowledgeBean;
 import com.example.dllo.foodpie.web.GsonRequest;
+import com.example.dllo.foodpie.web.SingleSimpleThreadPool;
 import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
+import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
  * Created by dllo on 16/10/24.
  */
 public class KnowledgeFragment extends BaseFragment{
 
-    private RecyclerView rvKnowledge;
+    private PullLoadMoreRecyclerView rvKnowledge;
     private KnowledgeRvAdapter adapter;
+    private int a = 1;
+    private ImageButton btn_knowledge;
 
 
     @Override
@@ -32,29 +38,97 @@ public class KnowledgeFragment extends BaseFragment{
         rvKnowledge = bindView(R.id.rv_eat_knowledge);
         adapter = new KnowledgeRvAdapter(MyApp.getContext());
         rvKnowledge.setAdapter(adapter);
+        btn_knowledge = bindView(R.id.btn_eat_knowledge_top);
 
     }
 
+
     @Override
     protected void initData() {
-        GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KOOWLEDGE,
-                new Response.Listener<KnowledgeBean>() {
-
-                    private LinearLayoutManager manager;
-
-                    @Override
-                    public void onResponse(KnowledgeBean response) {
-                        adapter.setKnowledgeBean(response);
-                        manager = new LinearLayoutManager(MyApp.getContext());
-                        rvKnowledge.setLayoutManager(manager);
-                    }
-                }, new Response.ErrorListener() {
+        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void run() {
+                GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KOOWLEDGE,
+                        new Response.Listener<KnowledgeBean>() {
 
+                            private LinearLayoutManager manager;
+
+                            @Override
+                            public void onResponse(KnowledgeBean response) {
+                                adapter.setKnowledgeBean(response);
+                                manager = new LinearLayoutManager(MyApp.getContext());
+                                rvKnowledge.setLinearLayout();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                VolleySingleton.getInstance().addRequest(gsonRequest);
             }
         });
-        //第三步: 把请求放到请求队列里
-        VolleySingleton.getInstance().addRequest(gsonRequest);
+        //上拉下拉刷新
+        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                //上拉下拉方法
+                pullAndDownToFresh();
+            }
+        });
+        btn_knowledge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rvKnowledge.scrollToTop();
+                Toast.makeText(mContext, "回到顶部", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void pullAndDownToFresh() {
+        rvKnowledge.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
+            @Override
+            public void onRefresh() {
+                GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KOOWLEDGE,
+                        new Response.Listener<KnowledgeBean>() {
+
+                            private LinearLayoutManager manager;
+
+                            @Override
+                            public void onResponse(KnowledgeBean response) {
+                                adapter.setKnowledgeBean(response);
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                VolleySingleton.getInstance().addRequest(gsonRequest);
+                rvKnowledge.setPullLoadMoreCompleted();
+            }
+
+            @Override
+            public void onLoadMore() {
+                String url = "http://food.boohee.com/fb/v1/feeds/category_feed?page=" + (a + 1) + "" + "&category=3&per=10";
+                GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, url,
+                        new Response.Listener<KnowledgeBean>() {
+
+                            @Override
+                            public void onResponse(KnowledgeBean response) {
+                                adapter.addBeanData(response);
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                VolleySingleton.getInstance().addRequest(gsonRequest);
+                rvKnowledge.setPullLoadMoreCompleted();
+                rvKnowledge.setFooterViewText("");
+                a++;
+            }
+        });
     }
 }

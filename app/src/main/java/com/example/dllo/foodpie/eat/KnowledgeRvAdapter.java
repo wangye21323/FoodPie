@@ -28,6 +28,10 @@ public class KnowledgeRvAdapter extends RecyclerView.Adapter<KnowledgeRvAdapter.
         notifyDataSetChanged();
     }
 
+    public void addBeanData(KnowledgeBean knowledgeBean){
+        this.knowledgeBean.addData(knowledgeBean.getFeeds());
+        notifyDataSetChanged();
+    }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.eat_item_knowledge, parent, false);

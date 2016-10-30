@@ -31,7 +31,6 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
 
     public void addBeanData(HomePageBean arrayList){
         this.arrayList.addData(arrayList.getFeeds());
-//        notifyItemChanged(this.arrayList.getFeeds().size());
         notifyDataSetChanged();
     }
 

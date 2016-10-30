@@ -28,6 +28,12 @@ public class KnowledgeBean {
 
     private List<FeedsBean> feeds;
 
+    public void addData(List<FeedsBean> feeds){
+        for (int i = 0; i < feeds.size(); i++) {
+            this.feeds.add(this.feeds.size() , feeds.get(i));
+        }
+    }
+
     public String getPage() {
         return page;
     }

@@ -29,6 +29,11 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
         notifyDataSetChanged();
     }
 
+    public void addBeanData(BeautyFoodBean beautyFoodBean){
+        this.beautyFoodBean.addData(beautyFoodBean.getFeeds());
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         //这个方法的返回值就是下边方法的参数viewType
