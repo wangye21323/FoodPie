@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
@@ -19,12 +20,15 @@ public class TestRvAdapter extends RecyclerView.Adapter<TestRvAdapter.MyViewHold
     private TestBean testBean;
     private Context context;
     private MyViewHolder viewHolder;
+    private OnClickItem onClickItem;
 
     public TestRvAdapter(Context context) {
         this.context = context;
     }
 
-
+    public void setOnClickItem(OnClickItem onClickItem) {
+        this.onClickItem = onClickItem;
+    }
 
     public void setTestBean(TestBean testBean) {
         this.testBean = testBean;
@@ -43,7 +47,7 @@ public class TestRvAdapter extends RecyclerView.Adapter<TestRvAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.source.setText(testBean.getFeeds().get(position).getSource());
         holder.tail.setText(testBean.getFeeds().get(position).getTail());
         holder.title.setText(testBean.getFeeds().get(position).getTitle());
@@ -51,6 +55,13 @@ public class TestRvAdapter extends RecyclerView.Adapter<TestRvAdapter.MyViewHold
         String imgUrlBackground = testBean.getFeeds().get(position).getBackground();
         VolleySingleton.getInstance().getImage(imgUrlBackground, holder.background);
 
+        //注册接口
+        holder.rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickItem.onClick(testBean.getFeeds().get(position).getLink());
+            }
+        });
     }
 
     @Override
@@ -60,10 +71,11 @@ public class TestRvAdapter extends RecyclerView.Adapter<TestRvAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView background;
-        private final TextView source;
-        private final TextView title;
-        private final TextView tail;
+        private ImageView background;
+        private TextView source;
+        private TextView title;
+        private TextView tail;
+        private RelativeLayout rl;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -71,6 +83,7 @@ public class TestRvAdapter extends RecyclerView.Adapter<TestRvAdapter.MyViewHold
             source = (TextView) itemView.findViewById(R.id.tv_eat_test_source);
             title = (TextView) itemView.findViewById(R.id.tv_eat_test_title);
             tail = (TextView) itemView.findViewById(R.id.tv_eat_test_tail);
+            rl = (RelativeLayout) itemView.findViewById(R.id.rl_eat_test);
         }
     }
 }

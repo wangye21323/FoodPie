@@ -1,5 +1,6 @@
 package com.example.dllo.foodpie.eat;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageButton;
@@ -7,12 +8,12 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.dllo.foodpie.DescriptionActivity;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.KnowledgeBean;
 import com.example.dllo.foodpie.web.GsonRequest;
-import com.example.dllo.foodpie.web.SingleSimpleThreadPool;
 import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
@@ -20,7 +21,7 @@ import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 /**
  * Created by dllo on 16/10/24.
  */
-public class KnowledgeFragment extends BaseFragment{
+public class KnowledgeFragment extends BaseFragment implements OnClickItem {
 
     private PullLoadMoreRecyclerView rvKnowledge;
     private KnowledgeRvAdapter adapter;
@@ -45,37 +46,29 @@ public class KnowledgeFragment extends BaseFragment{
 
     @Override
     protected void initData() {
-        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KOOWLEDGE,
-                        new Response.Listener<KnowledgeBean>() {
+        //网络请求
+        GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KOOWLEDGE,
+                new Response.Listener<KnowledgeBean>() {
 
-                            private LinearLayoutManager manager;
+                    private LinearLayoutManager manager;
 
-                            @Override
-                            public void onResponse(KnowledgeBean response) {
-                                adapter.setKnowledgeBean(response);
-                                manager = new LinearLayoutManager(MyApp.getContext());
-                                rvKnowledge.setLinearLayout();
-                            }
-                        }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-
+                    public void onResponse(KnowledgeBean response) {
+                        adapter.setKnowledgeBean(response);
+                        manager = new LinearLayoutManager(MyApp.getContext());
+                        rvKnowledge.setLinearLayout();
                     }
-                });
-                VolleySingleton.getInstance().addRequest(gsonRequest);
-            }
-        });
-        //上拉下拉刷新
-        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
+                }, new Response.ErrorListener() {
             @Override
-            public void run() {
-                //上拉下拉方法
-                pullAndDownToFresh();
+            public void onErrorResponse(VolleyError error) {
+
             }
         });
+        VolleySingleton.getInstance().addRequest(gsonRequest);
+
+        //上拉下拉方法
+        pullAndDownToFresh();
+
         btn_knowledge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +76,8 @@ public class KnowledgeFragment extends BaseFragment{
                 Toast.makeText(mContext, "回到顶部", Toast.LENGTH_SHORT).show();
             }
         });
+
+        adapter.setOnClickItem(this);
     }
 
     private void pullAndDownToFresh() {
@@ -130,5 +125,13 @@ public class KnowledgeFragment extends BaseFragment{
                 a++;
             }
         });
+    }
+
+    @Override
+    public void onClick(String link) {
+        Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
+        intent.putExtra("Web", link);
+        intent.putExtra("Text","咨询详情");
+        startActivity(intent);
     }
 }

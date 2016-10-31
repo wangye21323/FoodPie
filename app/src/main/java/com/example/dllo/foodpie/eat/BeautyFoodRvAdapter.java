@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
@@ -19,9 +20,14 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
     private BeautyFoodBean beautyFoodBean;
     private Context context;
     private MyViewHolder viewHolder;
+    private OnClickItem onClickItem;
 
     public BeautyFoodRvAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setOnClickItem(OnClickItem onClickItem) {
+        this.onClickItem = onClickItem;
     }
 
     public void setBeautyFoodBean(BeautyFoodBean beautyFoodBean) {
@@ -56,7 +62,7 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         switch (beautyFoodBean.getFeeds().get(position).getContent_type()){
             case 1:
                 holder.source.setText(beautyFoodBean.getFeeds().get(position).getSource());
@@ -64,6 +70,13 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
                 holder.tail.setText(beautyFoodBean.getFeeds().get(position).getTail());
                 String imgUrl = beautyFoodBean.getFeeds().get(position).getImages().get(0);
                 VolleySingleton.getInstance().getImage(imgUrl, holder.images);
+
+                holder.ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onClickItem.onClick(beautyFoodBean.getFeeds().get(position).getLink());
+                    }
+                });
                 break;
             case 2:
                 holder.sourceElse.setText(beautyFoodBean.getFeeds().get(position).getSource());
@@ -75,6 +88,13 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
                 VolleySingleton.getInstance().getImage(imgUrlTwo, holder.imagesTwo);
                 String imgUrlThree = beautyFoodBean.getFeeds().get(position).getImages().get(2);
                 VolleySingleton.getInstance().getImage(imgUrlThree, holder.imagesThree);
+
+                holder.llElse.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onClickItem.onClick(beautyFoodBean.getFeeds().get(position).getLink());
+                    }
+                });
                 break;
         }
     }
@@ -96,6 +116,8 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
         private ImageView imagesOne;
         private ImageView imagesTwo;
         private ImageView imagesThree;
+        private LinearLayout ll;
+        private LinearLayout llElse;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -110,6 +132,9 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
             imagesOne = (ImageView) itemView.findViewById(R.id.img_eat_beauty_else_images_one);
             imagesTwo = (ImageView) itemView.findViewById(R.id.img_eat_beauty_else_images_two);
             imagesThree = (ImageView) itemView.findViewById(R.id.img_eat_beauty_else_images_three);
+
+            ll = (LinearLayout) itemView.findViewById(R.id.ll_eat_beautyfood);
+            llElse = (LinearLayout) itemView.findViewById(R.id.ll_eat_beautyfood_else);
 
         }
     }

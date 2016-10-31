@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
@@ -18,9 +19,14 @@ import com.example.dllo.foodpie.web.VolleySingleton;
 public class KnowledgeRvAdapter extends RecyclerView.Adapter<KnowledgeRvAdapter.MyViewHolder>{
     private KnowledgeBean knowledgeBean;
     private Context context;
+    private OnClickItem onClickItem;
 
     public KnowledgeRvAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setOnClickItem(OnClickItem onClickItem) {
+        this.onClickItem = onClickItem;
     }
 
     public void setKnowledgeBean(KnowledgeBean knowledgeBean) {
@@ -40,12 +46,19 @@ public class KnowledgeRvAdapter extends RecyclerView.Adapter<KnowledgeRvAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.source.setText(knowledgeBean.getFeeds().get(position).getSource());
         holder.tail.setText(knowledgeBean.getFeeds().get(position).getTail());
         holder.title.setText(knowledgeBean.getFeeds().get(position).getTitle());
         String imgUrlCard = knowledgeBean.getFeeds().get(position).getImages().get(0);
         VolleySingleton.getInstance().getImage(imgUrlCard, holder.images);
+
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickItem.onClick(knowledgeBean.getFeeds().get(position).getLink());
+            }
+        });
     }
 
     @Override
@@ -59,6 +72,7 @@ public class KnowledgeRvAdapter extends RecyclerView.Adapter<KnowledgeRvAdapter.
         private TextView title;
         private TextView tail;
         private ImageView images;
+        private LinearLayout ll;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +80,7 @@ public class KnowledgeRvAdapter extends RecyclerView.Adapter<KnowledgeRvAdapter.
             title = (TextView) itemView.findViewById(R.id.tv_eat_knowledge_title);
             tail = (TextView) itemView.findViewById(R.id.tv_eat_knowledge_tail);
             images = (ImageView) itemView.findViewById(R.id.img_eat_knowledge_images);
+            ll = (LinearLayout) itemView.findViewById(R.id.ll_eat_knowledge);
         }
     }
 }

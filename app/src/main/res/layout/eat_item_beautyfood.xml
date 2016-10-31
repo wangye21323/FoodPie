@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_marginTop="10dp"
               android:background="#fff"
+              android:id="@+id/ll_eat_beautyfood"
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="86dp">

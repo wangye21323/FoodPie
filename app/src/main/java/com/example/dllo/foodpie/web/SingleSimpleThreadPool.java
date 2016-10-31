@@ -26,9 +26,7 @@ public class SingleSimpleThreadPool {
                 if (simpleThreadPool == null){
                     simpleThreadPool = new SingleSimpleThreadPool();
                 }
-
             }
-
         }
         return simpleThreadPool;
     }

@@ -1,5 +1,6 @@
 package com.example.dllo.foodpie.eat;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageButton;
@@ -7,12 +8,12 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.dllo.foodpie.DescriptionActivity;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.TestBean;
 import com.example.dllo.foodpie.web.GsonRequest;
-import com.example.dllo.foodpie.web.SingleSimpleThreadPool;
 import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
@@ -20,7 +21,7 @@ import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 /**
  * Created by dllo on 16/10/24.
  */
-public class TestFragment extends BaseFragment{
+public class TestFragment extends BaseFragment implements OnClickItem {
 
     private PullLoadMoreRecyclerView rvTest;
     private TestRvAdapter adapter;
@@ -45,34 +46,25 @@ public class TestFragment extends BaseFragment{
     @Override
     protected void initData() {
         //开启网络请求
-        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                GsonRequest<TestBean> gsonRequest = new GsonRequest<TestBean>(TestBean.class, TheValues.EAT_TEST,
-                        new Response.Listener<TestBean>() {
-                            @Override
-                            public void onResponse(TestBean response) {
-                                adapter.setTestBean(response);
-                                manager = new LinearLayoutManager(MyApp.getContext());
-                                rvTest.setLinearLayout();
-                            }
-                        }, new Response.ErrorListener() {
+        GsonRequest<TestBean> gsonRequest = new GsonRequest<TestBean>(TestBean.class, TheValues.EAT_TEST,
+                new Response.Listener<TestBean>() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-
+                    public void onResponse(TestBean response) {
+                        adapter.setTestBean(response);
+                        manager = new LinearLayoutManager(MyApp.getContext());
+                        rvTest.setLinearLayout();
                     }
-                });
-                VolleySingleton.getInstance().addRequest(gsonRequest);
-            }
-        });
-        //上拉下拉刷新
-        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
+                }, new Response.ErrorListener() {
             @Override
-            public void run() {
-                //上拉下拉方法
-                pullAndDownToFresh();
+            public void onErrorResponse(VolleyError error) {
+
             }
         });
+        VolleySingleton.getInstance().addRequest(gsonRequest);
+
+        //上拉下拉方法
+        pullAndDownToFresh();
+
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +72,8 @@ public class TestFragment extends BaseFragment{
                 Toast.makeText(mContext, "回到顶部", Toast.LENGTH_SHORT).show();
             }
         });
+        //实现接口
+        adapter.setOnClickItem(this);
     }
 
     private void pullAndDownToFresh() {
@@ -123,5 +117,14 @@ public class TestFragment extends BaseFragment{
                 a++;
             }
         });
+    }
+
+    @Override
+    public void onClick(String link) {
+        Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
+        intent.putExtra("Web", link);
+        intent.putExtra("Text","咨询详情");
+        startActivity(intent);
+
     }
 }

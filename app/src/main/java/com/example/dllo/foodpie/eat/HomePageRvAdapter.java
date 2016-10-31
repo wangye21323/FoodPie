@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
@@ -19,9 +20,14 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
     private HomePageBean arrayList;
     private Context context;
     private MyViewHolder viewHolder;
+    private OnClickItem onClickItem;
 
     public HomePageRvAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setOnClickItem(OnClickItem onClickItem) {
+        this.onClickItem = onClickItem;
     }
 
     public void setArrayList(HomePageBean arrayList) {
@@ -43,7 +49,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.publisher.setText(arrayList.getFeeds().get(position).getPublisher());
         holder.title.setText(arrayList.getFeeds().get(position).getTitle());
         holder.like.setText(String.valueOf(arrayList.getFeeds().get(position).getLike_ct()));
@@ -53,6 +59,13 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
         VolleySingleton.getInstance().getImage(imgUrlCard, holder.card);
         String imgUrlAvatar = arrayList.getFeeds().get(position).getPublisher_avatar();
         VolleySingleton.getInstance().getImage(imgUrlAvatar, holder.avatar);
+
+        holder.rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickItem.onClick(arrayList.getFeeds().get(position).getCard_image());
+            }
+        });
 
     }
 
@@ -64,12 +77,13 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView card;
-        private final TextView title;
-        private final ImageView avatar;
-        private final TextView publisher;
-        private final TextView like;
-        private final TextView desciption;
+        private ImageView card;
+        private TextView title;
+        private ImageView avatar;
+        private TextView publisher;
+        private TextView like;
+        private TextView desciption;
+        private RelativeLayout rl;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -79,6 +93,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
             publisher = (TextView) itemView.findViewById(R.id.tv_eat_homepage_publisher);
             like = (TextView) itemView.findViewById(R.id.tv_eat_homepage_like);
             desciption = (TextView) itemView.findViewById(R.id.tv_eat_homepage_description);
+            rl = (RelativeLayout) itemView.findViewById(R.id.rl_eat_homepage);
         }
     }
 }
