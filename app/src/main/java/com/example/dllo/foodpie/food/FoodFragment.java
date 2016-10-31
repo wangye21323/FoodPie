@@ -1,5 +1,7 @@
 package com.example.dllo.foodpie.food;
 
+import android.content.Intent;
+import android.util.Log;
 import android.widget.GridView;
 
 import com.android.volley.Response;
@@ -8,6 +10,7 @@ import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.FoodBean;
+import com.example.dllo.foodpie.eat.OnClickItem;
 import com.example.dllo.foodpie.web.GsonRequest;
 import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
@@ -15,7 +18,7 @@ import com.example.dllo.foodpie.web.VolleySingleton;
 /**
  * Created by dllo on 16/10/21.
  */
-public class FoodFragment extends BaseFragment{
+public class FoodFragment extends BaseFragment implements OnClickItem {
 
     private GridView type;
     private GridView chain;
@@ -68,5 +71,15 @@ public class FoodFragment extends BaseFragment{
         });
         //第三步: 把请求放到请求队列里
         VolleySingleton.getInstance().addRequest(gsonRequest);
+
+        adapterType.setOnClickItem(this);
+    }
+
+    @Override
+    public void onClick(String link) {
+        Intent intent = new Intent(MyApp.getContext(), FoodDescriptionActivity.class);
+        intent.putExtra("Food", link);
+        Log.d("FoodFragment", link);
+        startActivity(intent);
     }
 }

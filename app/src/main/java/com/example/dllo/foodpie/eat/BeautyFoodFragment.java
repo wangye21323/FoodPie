@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.dllo.foodpie.DescriptionActivity;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
@@ -123,4 +122,5 @@ public class BeautyFoodFragment extends BaseFragment implements OnClickItem {
         intent.putExtra("Text","咨询详情");
         startActivity(intent);
     }
+
 }

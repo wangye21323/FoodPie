@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.databean.FoodBean;
+import com.example.dllo.foodpie.eat.OnClickItem;
 import com.example.dllo.foodpie.web.VolleySingleton;
 
 /**
@@ -18,6 +20,11 @@ import com.example.dllo.foodpie.web.VolleySingleton;
 public class FoodAdapter extends BaseAdapter {
     private FoodBean.GroupBean groupBean;
     private Context context;
+    private OnClickItem onClickItem;
+
+    public void setOnClickItem(OnClickItem onClickItem) {
+        this.onClickItem = onClickItem;
+    }
 
     public FoodAdapter(Context context) {
         this.context = context;
@@ -44,7 +51,7 @@ public class FoodAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         MyTypeViewHolder viewHolder = null;
         if (convertView == null){
             convertView = LayoutInflater.from(context).inflate(R.layout.food_item, parent, false);
@@ -58,17 +65,26 @@ public class FoodAdapter extends BaseAdapter {
         String imgUrlCard = groupBean.getCategories().get(position).getImage_url();
         VolleySingleton.getInstance().getImage(imgUrlCard, viewHolder.image);
 
+        viewHolder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickItem.onClick(String.valueOf(groupBean.getCategories().get(position).getId()));
+            }
+        });
+
         return convertView;
     }
 
     private class MyTypeViewHolder {
 
-        private final ImageView image;
-        private final TextView text;
+        private ImageView image;
+        private TextView text;
+        private LinearLayout ll;
 
         public MyTypeViewHolder(View convertView) {
             image = (ImageView) convertView.findViewById(R.id.img_food_type_picture);
             text = (TextView) convertView.findViewById(R.id.tv_food_type_text);
+            ll = (LinearLayout) convertView.findViewById(R.id.ll_food_item);
         }
     }
 }

@@ -29,6 +29,9 @@ public class HomePageBean {
      * like_ct : 61
      */
 
+
+
+
     private List<FeedsBean> feeds;
 
     public void addData(List<FeedsBean> feeds){
@@ -72,6 +75,15 @@ public class HomePageBean {
         private int content_type;
         private String type;
         private int like_ct;
+        private String link;
+
+        public String getLink() {
+            return link;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
+        }
 
         public int getItem_id() {
             return item_id;

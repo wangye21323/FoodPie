@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.dllo.foodpie.DescriptionActivity;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
@@ -50,8 +49,8 @@ public class HomePageFragment extends BaseFragment implements OnClickItem {
                     @Override
                     public void onResponse(HomePageBean response) {
                         adapter.setArrayList(response);
-                        manager = new GridLayoutManager(MyApp.getContext(), 2);
-                        rvHomePage.setGridLayout(2);
+//                        manager = new GridLayoutManager(MyApp.getContext(), 2);
+                        rvHomePage.setStaggeredGridLayout(2);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -124,9 +123,19 @@ public class HomePageFragment extends BaseFragment implements OnClickItem {
 
     @Override
     public void onClick(String link) {
-        Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
-        intent.putExtra("Web", link);
-        intent.putExtra("Text","图片详情");
-        startActivity(intent);
+        if (link.length() > 6){
+            Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
+            intent.putExtra("Web", link);
+            intent.putExtra("Text","图片详情");
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(MyApp.getContext(), HomePageDescriptionActivity.class);
+            intent.putExtra("Web", link);
+            intent.putExtra("Text","图片详情");
+            startActivity(intent);
+        }
     }
+
+
+
 }

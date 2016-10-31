@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_marginTop="28dp"
+              android:id="@+id/ll_item_homepage"
+              android:layout_width="match_parent"
+              android:layout_height="252dp">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/img_eat_homepage_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

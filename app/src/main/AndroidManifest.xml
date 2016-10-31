@@ -30,8 +30,17 @@
             android:name=".SettingActivity"
             android:theme="@style/customTitle">
         </activity>
-        <activity android:name=".DescriptionActivity"
+        <activity
+            android:name=".eat.DescriptionActivity"
+            android:theme="@style/customTitle">
+        </activity>
+        <activity android:name=".eat.HomePageDescriptionActivity"
                   android:theme="@style/customTitle">
+        </activity>
+
+        <activity android:name=".food.FoodDescriptionActivity"
+                  android:theme="@style/customTitle">
+
         </activity>
     </application>
 
