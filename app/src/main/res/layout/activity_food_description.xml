@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:id="@+id/ll_food_description_back"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -18,6 +19,7 @@
         android:orientation="horizontal"
         android:layout_height="30dp">
         <TextView
+            android:id="@+id/tv_food_description_line"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="5dp"
             android:text="营养素排序"

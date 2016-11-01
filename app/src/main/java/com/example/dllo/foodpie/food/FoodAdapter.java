@@ -11,38 +11,43 @@ import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.databean.FoodBean;
-import com.example.dllo.foodpie.eat.OnClickItem;
 import com.example.dllo.foodpie.web.VolleySingleton;
 
 /**
  * Created by dllo on 16/10/27.
  */
 public class FoodAdapter extends BaseAdapter {
-    private FoodBean.GroupBean groupBean;
+    private FoodBean foodBean;
     private Context context;
-    private OnClickItem onClickItem;
+    private OnClickFoodListener onClickFoodListener;
+    private int group = -1;
 
-    public void setOnClickItem(OnClickItem onClickItem) {
-        this.onClickItem = onClickItem;
+    public void setOnClickFoodListener(OnClickFoodListener onClickFoodListener) {
+        this.onClickFoodListener = onClickFoodListener;
     }
 
     public FoodAdapter(Context context) {
         this.context = context;
     }
 
-    public void setGroupBean(FoodBean.GroupBean groupBean) {
-        this.groupBean = groupBean;
+    public void setFoodBean(int group, FoodBean foodBean) {
+        this.foodBean = foodBean;
+        this.group = group;
         notifyDataSetChanged();
     }
 
+
     @Override
     public int getCount() {
-        return groupBean == null ? 0 : groupBean.getCategories().size();
+        if(foodBean == null){
+            return 0;
+        }
+        return foodBean.getGroup().get(group).getCategories().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return groupBean.getCategories().get(position);
+        return foodBean.getGroup().get(position);
     }
 
     @Override
@@ -53,22 +58,23 @@ public class FoodAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         MyTypeViewHolder viewHolder = null;
-        if (convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.food_item, parent, false);
             viewHolder = new MyTypeViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else {
+        } else {
             viewHolder = (MyTypeViewHolder) convertView.getTag();
         }
 
-        viewHolder.text.setText(groupBean.getCategories().get(position).getName());
-        String imgUrlCard = groupBean.getCategories().get(position).getImage_url();
+        viewHolder.text.setText(foodBean.getGroup().get(group).getCategories().get(position).getName());
+        String imgUrlCard = foodBean.getGroup().get(group).getCategories().get(position).getImage_url();
         VolleySingleton.getInstance().getImage(imgUrlCard, viewHolder.image);
+
 
         viewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItem.onClick(String.valueOf(groupBean.getCategories().get(position).getId()));
+                onClickFoodListener.onClickFood(foodBean.getGroup().get(group).getCategories().get(position).getId(), group);
             }
         });
 

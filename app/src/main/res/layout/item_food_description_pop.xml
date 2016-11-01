@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#fff"
+              android:layout_width="match_parent"
+              android:layout_height="29dp">
+
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/tv_food_description_pop_text"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"/>
+    <!--设置下划线-->
+    <ImageView
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="#9E9595"/>
+</LinearLayout>

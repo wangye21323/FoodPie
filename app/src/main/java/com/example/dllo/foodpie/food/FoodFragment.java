@@ -10,7 +10,6 @@ import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.FoodBean;
-import com.example.dllo.foodpie.eat.OnClickItem;
 import com.example.dllo.foodpie.web.GsonRequest;
 import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
@@ -18,7 +17,7 @@ import com.example.dllo.foodpie.web.VolleySingleton;
 /**
  * Created by dllo on 16/10/21.
  */
-public class FoodFragment extends BaseFragment implements OnClickItem {
+public class FoodFragment extends BaseFragment implements OnClickFoodListener {
 
     private GridView type;
     private GridView chain;
@@ -39,13 +38,13 @@ public class FoodFragment extends BaseFragment implements OnClickItem {
         brand = bindView(R.id.gv_food_brand);
 
         adapterType = new FoodAdapter(MyApp.getContext());
-        type.setAdapter(adapterType);
+
 
         adapterBrand = new FoodAdapter(MyApp.getContext());
-        brand.setAdapter(adapterBrand);
+
 
         adapterChain = new FoodAdapter(MyApp.getContext());
-        chain.setAdapter(adapterChain);
+
     }
 
     @Override
@@ -57,11 +56,14 @@ public class FoodFragment extends BaseFragment implements OnClickItem {
                     public void onResponse(FoodBean response) {
 
 
-                        adapterType.setGroupBean(response.getGroup().get(0));
+                        type.setAdapter(adapterType);
+                        adapterType.setFoodBean(0, response);
 
-                        adapterBrand.setGroupBean(response.getGroup().get(1));
+                        brand.setAdapter(adapterBrand);
+                        adapterBrand.setFoodBean(1, response);
 
-                        adapterChain.setGroupBean(response.getGroup().get(2));
+                        adapterChain.setFoodBean(2, response);
+                        chain.setAdapter(adapterChain);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -72,14 +74,18 @@ public class FoodFragment extends BaseFragment implements OnClickItem {
         //第三步: 把请求放到请求队列里
         VolleySingleton.getInstance().addRequest(gsonRequest);
 
-        adapterType.setOnClickItem(this);
+        adapterType.setOnClickFoodListener(this);
+        adapterBrand.setOnClickFoodListener(this);
+        adapterChain.setOnClickFoodListener(this);
     }
 
+
     @Override
-    public void onClick(String link) {
-        Intent intent = new Intent(MyApp.getContext(), FoodDescriptionActivity.class);
-        intent.putExtra("Food", link);
-        Log.d("FoodFragment", link);
-        startActivity(intent);
+    public void onClickFood(int link, int group) {
+            Intent intent = new Intent(MyApp.getContext(), FoodDescriptionActivity.class);
+            intent.putExtra("Link", link);
+            intent.putExtra("Group", group);
+        Log.d("FoodFragment", "group:" + group);
+            startActivity(intent);
     }
 }

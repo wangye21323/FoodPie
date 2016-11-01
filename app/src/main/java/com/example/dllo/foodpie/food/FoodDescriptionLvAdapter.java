@@ -60,6 +60,19 @@ public class FoodDescriptionLvAdapter extends BaseAdapter {
         String imgUrlThumb = foodDescriptionBean.getFoods().get(position).getThumb_image_url();
         VolleySingleton.getInstance().getImage(imgUrlThumb, viewHolder.thumb);
 
+        int num = foodDescriptionBean.getFoods().get(position).getHealth_light();
+        switch (num){
+            case 1:
+                viewHolder.point.setImageResource(R.mipmap.ic_food_light_green);
+                break;
+            case 2:
+                viewHolder.point.setImageResource(R.mipmap.ic_food_light_yellow);
+                break;
+            case 3:
+                viewHolder.point.setImageResource(R.mipmap.ic_food_light_red);
+                break;
+        }
+
 
         return convertView;
     }

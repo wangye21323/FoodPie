@@ -41,6 +41,7 @@
                     android:id="@+id/rb_food"
                     android:layout_gravity="center"
                     android:button="@null"
+                    android:checked="true"
                     android:textColor="@color/main_text_color"
                     android:layout_width="0dp"
                     android:drawableTop="@drawable/mainfood"

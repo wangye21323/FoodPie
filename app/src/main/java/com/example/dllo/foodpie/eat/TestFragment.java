@@ -129,7 +129,6 @@ public class TestFragment extends BaseFragment implements OnClickItem {
         intent.putExtra("Web", link);
         intent.putExtra("Text","咨询详情");
         startActivity(intent);
-
     }
 
 }
