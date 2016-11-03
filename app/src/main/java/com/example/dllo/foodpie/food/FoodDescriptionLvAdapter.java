@@ -2,6 +2,7 @@ package com.example.dllo.foodpie.food;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.databean.FoodDescriptionBean;
 import com.example.dllo.foodpie.web.VolleySingleton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by dllo on 16/10/31.
  */
@@ -23,6 +27,38 @@ public class FoodDescriptionLvAdapter extends BaseAdapter {
     public void setFoodDescriptionBean(FoodDescriptionBean foodDescriptionBean) {
         this.foodDescriptionBean = foodDescriptionBean;
         notifyDataSetChanged();
+    }
+
+    public void addBeanData(FoodDescriptionBean foodDescriptionBean){
+        this.foodDescriptionBean.addData(foodDescriptionBean.getFoods());
+        notifyDataSetChanged();
+    }
+
+    public void order(String position){
+        Log.d("FoodDescriptionLvAdapte", position);
+
+        List<FoodDescriptionBean.FoodsBean> list = foodDescriptionBean.getFoods();
+        List<FoodDescriptionBean.FoodsBean> mid = new ArrayList<>();
+
+//        switch (position){
+//            case "protein":
+//                for (int i = 0; i < list.size() - 1; i++) {
+//                    FoodDescriptionBean.FoodsBean foodsBean = list.get(i);
+//                    float protein = Float.valueOf(foodsBean.getProtein());
+//
+//                    for (int j = 0; j < list.size() - 1 - i; j++) {
+//                        if (protein > protein)
+//                    }
+//
+////                    float max = protein > 0 ? protein : 0;
+////                    float max1 = Float.valueOf(foodDescriptionBean.getFoods().get(i).getProtein()) > max ? Float.valueOf(foodDescriptionBean.getFoods().get(i).getProtein()) : protein;
+////                    ArrayList<FoodDescriptionBean.FoodsBean> been = new ArrayList<>();
+////                    been.add(foodDescriptionBean.getFoods().get(i));
+//
+//                }
+//                break;
+//        }
+//        this.foodDescriptionBean = ;
     }
 
     public FoodDescriptionLvAdapter(Context context) {
@@ -56,6 +92,8 @@ public class FoodDescriptionLvAdapter extends BaseAdapter {
         }
         viewHolder.name.setText(foodDescriptionBean.getFoods().get(position).getName());
         viewHolder.calory.setText(foodDescriptionBean.getFoods().get(position).getCalory());
+
+
 
         String imgUrlThumb = foodDescriptionBean.getFoods().get(position).getThumb_image_url();
         VolleySingleton.getInstance().getImage(imgUrlThumb, viewHolder.thumb);

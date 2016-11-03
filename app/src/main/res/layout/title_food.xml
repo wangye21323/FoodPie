@@ -5,23 +5,33 @@
               android:background="#fff"
               android:layout_height="48dp">
 
-    <ImageButton
-        android:layout_marginLeft="5dp"
-        android:id="@+id/img_load_img"
+    <LinearLayout
+        android:id="@+id/ll_food_description_title_back"
+        android:layout_marginLeft="4dp"
         android:layout_centerVertical="true"
-        android:background="@null"
-        android:src="@mipmap/ic_back_dark_center"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:text="登录"
-        android:layout_marginLeft="3dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/img_load_img"
-        android:layout_toEndOf="@+id/img_load_img"
-        android:layout_alignBottom="@+id/img_load_img"
-        android:layout_toRightOf="@+id/img_load_img"/>
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_marginLeft="5dp"
+            android:id="@+id/img_load_img"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@mipmap/ic_back_dark_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="登录"
+            android:id="@+id/tv_food_description_back_name"
+            android:layout_marginLeft="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/img_load_img"
+            android:layout_toEndOf="@+id/img_load_img"
+            android:layout_alignBottom="@+id/img_load_img"
+            android:layout_toRightOf="@+id/img_load_img"/>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_food_description_all"
         android:layout_marginRight="6dp"
@@ -31,11 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:text="全部"
+            android:id="@+id/tv_food_description_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
-            android:src="@mipmap/ic_food_arrow_ordering"
+            android:id="@+id/img_food_description_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

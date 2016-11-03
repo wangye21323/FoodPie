@@ -96,6 +96,4 @@ public class MainActivity extends BaseActivity {
             last = radioButton;
         }
     }
-
-
 }

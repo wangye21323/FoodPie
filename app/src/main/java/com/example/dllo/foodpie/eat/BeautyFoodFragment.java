@@ -93,7 +93,7 @@ public class BeautyFoodFragment extends BaseFragment implements OnClickItem {
 
             @Override
             public void onLoadMore() {
-                String url = "http://food.boohee.com/fb/v1/feeds/category_feed?page=" + (a + 1) + "" + "&category=4&per=10";
+                String url = TheValues.EAT_DOWN_BEFORE + (a + 1) + "" + TheValues.EAT_BEAUTY_DOWN_AFTER;
                 GsonRequest<BeautyFoodBean> gsonRequest = new GsonRequest<BeautyFoodBean>(BeautyFoodBean.class, url,
                         new Response.Listener<BeautyFoodBean>() {
                             @Override

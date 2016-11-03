@@ -14,6 +14,9 @@ import com.example.dllo.foodpie.web.GsonRequest;
 import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by dllo on 16/10/21.
  */
@@ -39,9 +42,7 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener {
 
         adapterType = new FoodAdapter(MyApp.getContext());
 
-
         adapterBrand = new FoodAdapter(MyApp.getContext());
-
 
         adapterChain = new FoodAdapter(MyApp.getContext());
 
@@ -81,11 +82,15 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener {
 
 
     @Override
-    public void onClickFood(int link, int group) {
-            Intent intent = new Intent(MyApp.getContext(), FoodDescriptionActivity.class);
-            intent.putExtra("Link", link);
-            intent.putExtra("Group", group);
-        Log.d("FoodFragment", "group:" + group);
-            startActivity(intent);
+    public void onClickFood(int link, int group, String name, List categories) {
+        Intent intent = new Intent(MyApp.getContext(), FoodDescriptionActivity.class);
+        intent.putExtra("Link", link);
+        intent.putExtra("Group", group);
+        intent.putExtra("Name", name);
+        intent.putExtra("categories", (Serializable) categories);
+
+        Log.d("FoodFragment", "categories:" + categories);
+        startActivity(intent);
+
     }
 }

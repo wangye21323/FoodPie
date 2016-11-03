@@ -46,7 +46,7 @@ public class KnowledgeFragment extends BaseFragment implements OnClickItem {
     @Override
     protected void initData() {
         //网络请求
-        GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KOOWLEDGE,
+        GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KNOWLEDGE,
                 new Response.Listener<KnowledgeBean>() {
 
                     private LinearLayoutManager manager;
@@ -83,7 +83,7 @@ public class KnowledgeFragment extends BaseFragment implements OnClickItem {
         rvKnowledge.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
-                GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KOOWLEDGE,
+                GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, TheValues.EAT_KNOWLEDGE,
                         new Response.Listener<KnowledgeBean>() {
 
                             private LinearLayoutManager manager;
@@ -104,7 +104,7 @@ public class KnowledgeFragment extends BaseFragment implements OnClickItem {
 
             @Override
             public void onLoadMore() {
-                String url = "http://food.boohee.com/fb/v1/feeds/category_feed?page=" + (a + 1) + "" + "&category=3&per=10";
+                String url = TheValues.EAT_DOWN_BEFORE + (a + 1) + "" + TheValues.EAT_KNOWLEDGE_DOWN_AFTER;
                 GsonRequest<KnowledgeBean> gsonRequest = new GsonRequest<KnowledgeBean>(KnowledgeBean.class, url,
                         new Response.Listener<KnowledgeBean>() {
 
@@ -120,6 +120,7 @@ public class KnowledgeFragment extends BaseFragment implements OnClickItem {
                 });
                 VolleySingleton.getInstance().addRequest(gsonRequest);
                 rvKnowledge.setPullLoadMoreCompleted();
+
                 rvKnowledge.setFooterViewText("");
                 a++;
             }

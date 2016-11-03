@@ -100,7 +100,7 @@ public class HomePageFragment extends BaseFragment implements OnClickItem {
             @Override
             public void onLoadMore() {
                 //上拉刷新
-                String url = "http://food.boohee.com/fb/v1/feeds/category_feed?page=" + (a + 1) + "" + "&category=1&per=10";
+                String url = TheValues.EAT_DOWN_BEFORE + (a + 1) + "" + TheValues.EAT_HOMEPAGE_DOWN_AFTER;
                 GsonRequest<HomePageBean> gsonRequest = new GsonRequest<HomePageBean>(HomePageBean.class, url,
                         new Response.Listener<HomePageBean>() {
                             @Override
@@ -117,6 +117,7 @@ public class HomePageFragment extends BaseFragment implements OnClickItem {
                 a++;
                 rvHomePage.setFooterViewText("");
                 rvHomePage.setPullLoadMoreCompleted();
+
             }
         });
     }

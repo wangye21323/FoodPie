@@ -1,6 +1,7 @@
 package com.example.dllo.foodpie.food;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.databean.FoodBean;
 import com.example.dllo.foodpie.web.VolleySingleton;
+
+import java.util.List;
 
 /**
  * Created by dllo on 16/10/27.
@@ -74,7 +77,12 @@ public class FoodAdapter extends BaseAdapter {
         viewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickFoodListener.onClickFood(foodBean.getGroup().get(group).getCategories().get(position).getId(), group);
+                String name = foodBean.getGroup().get(group).getCategories().get(position).getName();
+                int id = foodBean.getGroup().get(group).getCategories().get(position).getId();
+//                ArrayList categories = (ArrayList) foodBean.getGroup().get(group).getCategories().get(position).getSub_categories();
+                List<FoodBean.GroupBean.CategoriesBean.SubCategoriesBean> been = foodBean.getGroup().get(group).getCategories().get(position).getSub_categories();
+                Log.d("FoodAdapter", "categories:" + been);
+                onClickFoodListener.onClickFood(id, group, name, been);
             }
         });
 

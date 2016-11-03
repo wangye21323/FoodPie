@@ -102,7 +102,7 @@ public class TestFragment extends BaseFragment implements OnClickItem {
 
             @Override
             public void onLoadMore() {
-                String url = "http://food.boohee.com/fb/v1/feeds/category_feed?page=" + (a + 1) + "" + "&category=2&per=10";
+                String url = TheValues.EAT_DOWN_BEFORE + (a + 1) + "" + TheValues.EAT_TEST_DOWN_AFTER;
                 GsonRequest<TestBean> gsonRequest = new GsonRequest<TestBean>(TestBean.class, url,
                         new Response.Listener<TestBean>() {
                             @Override
