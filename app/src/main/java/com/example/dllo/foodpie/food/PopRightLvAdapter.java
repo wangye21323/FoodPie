@@ -40,8 +40,8 @@ public class PopRightLvAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public FoodDescriptionRightPopBean getItem(int position) {
+        return foodDescriptionRightPopBean.get(position);
     }
 
     @Override

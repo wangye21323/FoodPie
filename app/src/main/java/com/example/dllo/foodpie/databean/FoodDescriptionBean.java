@@ -50,9 +50,10 @@ public class FoodDescriptionBean {
     private List<FoodsBean> foods;
 
     public void addData(List<FoodsBean> foods){
-        for (int i = 0; i < foods.size(); i++) {
-            this.foods.add(this.foods.size() ,foods.get(i));
-        }
+//        for (int i = 0; i < foods.size(); i++) {
+//            this.foods.add(this.foods.size() ,foods.get(i));
+//        }
+        this.foods.addAll(foods);
     }
 
     public int getPage() {

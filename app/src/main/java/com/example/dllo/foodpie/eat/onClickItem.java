@@ -5,5 +5,5 @@ package com.example.dllo.foodpie.eat;
  */
 public interface OnClickItem {
     //逛吃界面的item界面点击事件
-    public void onClick(String link);
+    void onClick(String link);
 }

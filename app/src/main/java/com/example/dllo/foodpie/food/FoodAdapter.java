@@ -1,7 +1,6 @@
 package com.example.dllo.foodpie.food;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,11 +76,11 @@ public class FoodAdapter extends BaseAdapter {
         viewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // TODO: 16/11/4 周末应该做, listview是有自己的点击事件的
                 String name = foodBean.getGroup().get(group).getCategories().get(position).getName();
                 int id = foodBean.getGroup().get(group).getCategories().get(position).getId();
-//                ArrayList categories = (ArrayList) foodBean.getGroup().get(group).getCategories().get(position).getSub_categories();
                 List<FoodBean.GroupBean.CategoriesBean.SubCategoriesBean> been = foodBean.getGroup().get(group).getCategories().get(position).getSub_categories();
-                Log.d("FoodAdapter", "categories:" + been);
                 onClickFoodListener.onClickFood(id, group, name, been);
             }
         });

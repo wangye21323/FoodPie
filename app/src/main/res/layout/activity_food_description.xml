@@ -15,26 +15,57 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#9E9595"/>
-    <LinearLayout
+    <RelativeLayout
         android:background="#fff"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="30dp">
-        <TextView
-            android:id="@+id/tv_food_description_line"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="5dp"
-            android:text="营养素排序"
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <ImageView
-            android:id="@+id/food_description_up_down"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="5dp"
-            android:src="@mipmap/ic_unit_arrow_down"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_food_description_line"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="5dp"
+                android:text="营养素排序"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/food_description_up_down"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/ic_unit_arrow_down"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_food_description_down_up"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"/>
-    </LinearLayout>
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#f00"
+                android:id="@+id/tv_food_description_down_up"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/img_food_description_down_up"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">

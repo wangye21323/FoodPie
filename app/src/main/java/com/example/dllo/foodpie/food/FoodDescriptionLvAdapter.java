@@ -14,9 +14,6 @@ import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.databean.FoodDescriptionBean;
 import com.example.dllo.foodpie.web.VolleySingleton;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by dllo on 16/10/31.
  */
@@ -26,40 +23,16 @@ public class FoodDescriptionLvAdapter extends BaseAdapter {
 
     public void setFoodDescriptionBean(FoodDescriptionBean foodDescriptionBean) {
         this.foodDescriptionBean = foodDescriptionBean;
+        Log.d("FoodDescriptionLvAdapte", "刷新了");
         notifyDataSetChanged();
     }
 
+    // TODO: 16/11/4 可以将两个写成一个方法, 进行判断
     public void addBeanData(FoodDescriptionBean foodDescriptionBean){
         this.foodDescriptionBean.addData(foodDescriptionBean.getFoods());
         notifyDataSetChanged();
     }
 
-    public void order(String position){
-        Log.d("FoodDescriptionLvAdapte", position);
-
-        List<FoodDescriptionBean.FoodsBean> list = foodDescriptionBean.getFoods();
-        List<FoodDescriptionBean.FoodsBean> mid = new ArrayList<>();
-
-//        switch (position){
-//            case "protein":
-//                for (int i = 0; i < list.size() - 1; i++) {
-//                    FoodDescriptionBean.FoodsBean foodsBean = list.get(i);
-//                    float protein = Float.valueOf(foodsBean.getProtein());
-//
-//                    for (int j = 0; j < list.size() - 1 - i; j++) {
-//                        if (protein > protein)
-//                    }
-//
-////                    float max = protein > 0 ? protein : 0;
-////                    float max1 = Float.valueOf(foodDescriptionBean.getFoods().get(i).getProtein()) > max ? Float.valueOf(foodDescriptionBean.getFoods().get(i).getProtein()) : protein;
-////                    ArrayList<FoodDescriptionBean.FoodsBean> been = new ArrayList<>();
-////                    been.add(foodDescriptionBean.getFoods().get(i));
-//
-//                }
-//                break;
-//        }
-//        this.foodDescriptionBean = ;
-    }
 
     public FoodDescriptionLvAdapter(Context context) {
         this.context = context;

@@ -2,6 +2,7 @@ package com.example.dllo.foodpie.food;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,9 @@ public class FoodDescriptionPopRvAdapter extends RecyclerView.Adapter<FoodDescri
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickPopLeftListener.onClickPopLeft(foodDescriptionPopBean.getTypes().get(position).getCode());
+                onClickPopLeftListener.onClickPopLeft(foodDescriptionPopBean.getTypes().get(position).getIndex(), foodDescriptionPopBean.getTypes().get(position).getName());
+                Log.d("FoodDescriptionPopRvAda", foodDescriptionPopBean.getTypes().get(position).getName());
+                Log.d("FoodDescriptionPopRvAda", foodDescriptionPopBean.getTypes().get(position).getIndex());
             }
         });
     }

@@ -8,7 +8,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
-import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.FoodBean;
 import com.example.dllo.foodpie.web.GsonRequest;
 import com.example.dllo.foodpie.web.TheValues;
@@ -40,11 +39,11 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener {
         chain = bindView(R.id.gv_food_chain);
         brand = bindView(R.id.gv_food_brand);
 
-        adapterType = new FoodAdapter(MyApp.getContext());
+        adapterType = new FoodAdapter(getActivity());
 
-        adapterBrand = new FoodAdapter(MyApp.getContext());
+        adapterBrand = new FoodAdapter(getActivity());
 
-        adapterChain = new FoodAdapter(MyApp.getContext());
+        adapterChain = new FoodAdapter(getActivity());
 
     }
 
@@ -83,7 +82,7 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener {
 
     @Override
     public void onClickFood(int link, int group, String name, List categories) {
-        Intent intent = new Intent(MyApp.getContext(), FoodDescriptionActivity.class);
+        Intent intent = new Intent(getActivity(), FoodDescriptionActivity.class);
         intent.putExtra("Link", link);
         intent.putExtra("Group", group);
         intent.putExtra("Name", name);

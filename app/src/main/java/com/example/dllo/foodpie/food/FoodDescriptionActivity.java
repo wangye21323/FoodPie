@@ -74,6 +74,11 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
     private PopRightLvAdapter adapterRight;
     private String urlRight;
     private FoodDescriptionPopRvAdapter adapterPop;
+    private String urlLeft;
+    private TextView tvPopName;
+    private TextView tvDownOrUp;
+    private ImageView imgDownOrUp;
+    private LinearLayout llUpOrDown;
 
     @Override
     protected int getLayout() {
@@ -95,10 +100,16 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
         tvAll = bindView(R.id.tv_food_description_all);
         imgDown = bindView(R.id.img_food_description_down);
         imgPopRight = bindView(R.id.img_food_description_down);
+        tvPopName = bindView(R.id.tv_food_description_line);
 
-        adapterPop = new FoodDescriptionPopRvAdapter(MyApp.getContext());
+        tvDownOrUp = bindView(R.id.tv_food_description_down_up);
+        imgDownOrUp = bindView(R.id.img_food_description_down_up);
+        llUpOrDown = bindView(R.id.ll_food_description_down_up);
 
-        adapterRight = new PopRightLvAdapter(MyApp.getContext());
+        adapterPop = new FoodDescriptionPopRvAdapter(this);
+
+        adapterRight = new PopRightLvAdapter(this);
+
 
 
 
@@ -164,11 +175,11 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
 
                 page++;
                 if (group == 0) {
-                    url = TheValues.FOOD_DESCRIPTION_DOWN_GROUP_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER + page + "";
+                    url = TheValues.FOOD_DESCRIPTION_DOWN_GROUP_BEFORE + idBefore + TheValues.FOOD_DESCRIPTION_DOWN_AFTER + page + "";
                 } else if (group == 1) {
-                    url = TheValues.FOOD_DESCRIPTION_DOWN_BRAND_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER + page + "";
+                    url = TheValues.FOOD_DESCRIPTION_DOWN_BRAND_BEFORE + idBefore + TheValues.FOOD_DESCRIPTION_DOWN_AFTER + page + "";
                 } else {
-                    url = TheValues.FOOD_DESCRIPTION_DOWN_RESTAURANT_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER + page + "";
+                    url = TheValues.FOOD_DESCRIPTION_DOWN_RESTAURANT_BEFORE + idBefore + TheValues.FOOD_DESCRIPTION_DOWN_AFTER + page + "";
                 }
 
                 GsonRequest<FoodDescriptionBean> gsonRequest = new GsonRequest<FoodDescriptionBean>(FoodDescriptionBean.class, url,
@@ -183,12 +194,34 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //                        if (BuildConfig.DEBUG)
 
                     }
                 });
                 VolleySingleton.getInstance().addRequest(gsonRequest);
                 lvFood.onRefreshComplete();
+            }
+        });
+        //由高到低排序和由低到高排序
+        llUpOrDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (urlLeft != null){
+                    if (!isClick){
+                        tvDownOrUp.setText("由低到高");
+                        imgDownOrUp.setImageResource(R.mipmap.ic_arrow_up_selected);
+                        isClick = !isClick;
+                        String urlToUp = urlLeft+"&order_asc=1";
+
+                        initGsonRequest(urlToUp);
+                    }else{
+                        tvDownOrUp.setText("由高到低");
+                        imgDownOrUp.setImageResource(R.mipmap.ic_arrow_down_selected);
+                        isClick = !isClick;
+                        String urlToDown = urlLeft+"&order_asc=0";
+
+                        initGsonRequest(urlToDown);
+                    }
+                }
             }
         });
     }
@@ -230,7 +263,6 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
         popUpWindowRight.showAsDropDown(imgPopRight, 10, -40);
     }
 
-    private FoodDescriptionBean listData;
 
     @Override
     protected void initDate() {
@@ -245,31 +277,17 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
         if (group == 0) {
             tvAll.setText("全部");
             imgDown.setImageResource(R.mipmap.ic_food_arrow_ordering);
-            url = TheValues.FOOD_DESCRIPTION_DOWN_GROUP_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
+            url = TheValues.FOOD_DESCRIPTION_DOWN_GROUP_BEFORE + idBefore + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
         } else if (group == 1) {
 
-            url = TheValues.FOOD_DESCRIPTION_DOWN_BRAND_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
+            url = TheValues.FOOD_DESCRIPTION_DOWN_BRAND_BEFORE + idBefore + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
         } else {
-            url = TheValues.FOOD_DESCRIPTION_DOWN_RESTAURANT_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
+            url = TheValues.FOOD_DESCRIPTION_DOWN_RESTAURANT_BEFORE + idBefore + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
         }
 
 
         //首次进入页面的时候进行的网络请求
-        GsonRequest<FoodDescriptionBean> gsonRequest = new GsonRequest<FoodDescriptionBean>(FoodDescriptionBean.class, url,
-                new Response.Listener<FoodDescriptionBean>() {
-                    @Override
-                    public void onResponse(FoodDescriptionBean response) {
-                        listData = response;
-                        adapter.setFoodDescriptionBean(response);
-                        lvFood.setAdapter(adapter);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        VolleySingleton.getInstance().addRequest(gsonRequest);
+        initGsonRequest(url);
         ll.setOnTouchListener(this);
 
         //右上角的点击全部按钮, 点击跳出pop
@@ -296,9 +314,12 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
                 adapterRight.setFoodDescriptionRightPopBean(arrayList);
                 lvRight.setAdapter(adapterRight);
 
+
             }
         });
         adapterRight.setOnClickPopRight(this);
+
+
         adapterPop.setOnClickPopLeftListener(this);
     }
 
@@ -400,12 +421,51 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
         }else{
                 urlRight = "http://food.boohee.com/fb/v1/foods?kind=group&value="+idBefore + ""+"&sub_value=" + id + "" + "&order_by=1&page=1&order_asc=0";
         }
-        GsonRequest<FoodDescriptionBean> gsonRequest = new GsonRequest<FoodDescriptionBean>(FoodDescriptionBean.class, urlRight,
-                new Response.Listener<FoodDescriptionBean>() {
 
+        initGsonRequest(urlRight);
+    }
+
+    //左侧pop的内容点击事件
+    @Override
+    public void onClickPopLeft(String index, String name) {
+        tvPopName.setText(name);
+        tvDownOrUp.setText("由高到低");
+        imgDownOrUp.setImageResource(R.mipmap.ic_arrow_down_selected);
+        Log.d("FoodDescriptionActivity", "group:" + group);
+        Log.d("FoodDescriptionActivity", index);
+        Log.d("FoodDescriptionActivity", "idBefore:" + idBefore);
+        if (group == 0){
+            urlLeft = "http://food.boohee.com/fb/v1/foods?kind=group&value="+idBefore+"&order_by="+ index +"&page=1";
+        }else if (group == 1){
+            urlLeft = "http://food.boohee.com/fb/v1/foods?kind=brand&value="+idBefore+"&order_by="+ index +"&page=1";
+        }else{
+            urlLeft = "http://food.boohee.com/fb/v1/foods?kind=restaurant&value="+idBefore+"&order_by="+ index +"&page=1";
+        }
+        Log.d("FoodDescriptionActivity", urlLeft);
+
+        //网络请求
+        initGsonRequest(urlLeft);
+
+        popUpWindow.dismiss();
+
+
+    }
+
+    //网络请求的方法, 传递参数即可
+    private void initGsonRequest(String url){
+        //开启帧动画
+        if (!flag) {
+            animation.setVisibility(View.VISIBLE);
+        }
+        //获取到AnimationDrawable动画对象
+        animation.setImageResource(R.drawable.animation_food);
+        final AnimationDrawable anim = (AnimationDrawable) animation.getDrawable();
+        anim.start();
+
+        GsonRequest<FoodDescriptionBean> gsonRequest = new GsonRequest<FoodDescriptionBean>(FoodDescriptionBean.class, url,
+                new Response.Listener<FoodDescriptionBean>() {
                     @Override
                     public void onResponse(FoodDescriptionBean response) {
-                        //请求成功数据
                         adapter.setFoodDescriptionBean(response);
                         lvFood.setAdapter(adapter);
                         animation.setVisibility(View.INVISIBLE);
@@ -419,14 +479,5 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
             }
         });
         VolleySingleton.getInstance().addRequest(gsonRequest);
-    }
-
-    //左侧pop的内容点击事件
-    @Override
-    public void onClickPopLeft(String code) {
-        Log.d("FoodDescriptionActivity", "点击了左侧");
-        Log.d("FoodDescriptionActivity", code);
-        popUpWindow.dismiss();
-        adapter.order(code);
     }
 }

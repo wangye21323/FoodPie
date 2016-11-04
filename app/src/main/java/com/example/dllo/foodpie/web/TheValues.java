@@ -3,7 +3,7 @@ package com.example.dllo.foodpie.web;
 /**
  * Created by dllo on 16/10/27.
  */
-public class TheValues {
+public final class TheValues {
 
     // 首页食物百科接口
     //逛吃界面--首页接口
