@@ -2,7 +2,9 @@ package com.example.dllo.foodpie.food;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -19,7 +21,7 @@ import java.util.List;
 /**
  * Created by dllo on 16/10/21.
  */
-public class FoodFragment extends BaseFragment implements OnClickFoodListener {
+public class FoodFragment extends BaseFragment implements OnClickFoodListener, View.OnClickListener {
 
     private GridView type;
     private GridView chain;
@@ -27,6 +29,7 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener {
     private FoodAdapter adapterType;
     private FoodAdapter adapterBrand;
     private FoodAdapter adapterChain;
+    private RelativeLayout search;
 
     @Override
     protected int getLayout() {
@@ -38,23 +41,22 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener {
         type = bindView(R.id.gv_food_type);
         chain = bindView(R.id.gv_food_chain);
         brand = bindView(R.id.gv_food_brand);
-
         adapterType = new FoodAdapter(getActivity());
-
         adapterBrand = new FoodAdapter(getActivity());
-
         adapterChain = new FoodAdapter(getActivity());
 
+        search = bindView(R.id.rl_food_search);
+        search.setOnClickListener(this);
     }
 
     @Override
+    //食物界面网络请求
     protected void initData() {
         GsonRequest<FoodBean> gsonRequest = new GsonRequest<FoodBean>(FoodBean.class, TheValues.FOOD_FOOD,
                 new Response.Listener<FoodBean>() {
 
                     @Override
                     public void onResponse(FoodBean response) {
-
 
                         type.setAdapter(adapterType);
                         adapterType.setFoodBean(0, response);
@@ -91,5 +93,12 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener {
         Log.d("FoodFragment", "categories:" + categories);
         startActivity(intent);
 
+    }
+
+    @Override
+    //食物百科界面的搜索按钮
+    public void onClick(View v) {
+        Intent intent = new Intent(getActivity(), SearchActivity.class);
+        startActivity(intent);
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+
+    <ImageButton
+        android:id="@+id/iBtn_search_back"
+        android:src="@mipmap/ic_back_dark_center"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/edt_food_search"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/iBtn_search_back"
+        android:hint="请输入食物名称"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageButton
+        android:id="@+id/iBtn_search_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:src="@mipmap/ic_search"/>
+</RelativeLayout>

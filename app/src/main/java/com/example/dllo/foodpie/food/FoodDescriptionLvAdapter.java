@@ -40,7 +40,7 @@ public class FoodDescriptionLvAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return foodDescriptionBean.getFoods().size();
+        return foodDescriptionBean.getFoods() == null ? 0 : foodDescriptionBean.getFoods().size();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class FoodDescriptionLvAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         MyViewHolder viewHolder = null;
         if (convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_food_description, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_food_description, parent, false);
             viewHolder = new MyViewHolder(convertView);
             convertView.setTag(viewHolder);
         }else {

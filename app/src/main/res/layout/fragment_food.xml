@@ -33,6 +33,7 @@
                 android:textColor="#fff"/>
 
             <RelativeLayout
+                android:id="@+id/rl_food_search"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_below="@id/tv_food_tv"
