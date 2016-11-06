@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -44,6 +43,7 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
         rvSearch.setAdapter(adapter);
     }
 
+
     @Override
     protected void initData() {
         String url = "http://food.boohee.com/fb/v1/keywords?token=&user_key=&app_version=2.6";
@@ -68,7 +68,6 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
 
     @Override
     public void onClickSearch(String name) {
-        Toast.makeText(mContext, name, Toast.LENGTH_SHORT).show();
         ResultFragment fragment = new ResultFragment();
         Bundle bundle = new Bundle();
         bundle.putString("Title", name);
@@ -79,6 +78,7 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
         transaction1.replace(R.id.frame_search, fragment);
         transaction1.commit();
 
+        //第一个界面的额大家都在搜的点击给activity上的edittext传值
         EventText eventText = new EventText();
         eventText.setText(name);
         EventBus.getDefault().post(eventText);

@@ -48,7 +48,7 @@ public class ResultLvAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         MyViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_food_result, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_food_result, parent, false);
             viewHolder = new MyViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -72,6 +72,7 @@ public class ResultLvAdapter extends BaseAdapter {
                 viewHolder.point.setImageResource(R.mipmap.ic_food_light_red);
                 break;
         }
+
 
         return convertView;
     }
