@@ -10,20 +10,21 @@
         android:orientation="horizontal"
         android:layout_height="30dp">
         <LinearLayout
+            android:id="@+id/ll_food_search_line"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tv_food_description_line"
+                android:id="@+id/tv_food_search_line_pop"
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="5dp"
                 android:text="营养素排序"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <ImageView
-                android:id="@+id/food_description_up_down"
+                android:id="@+id/food_search_up_down"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="5dp"
                 android:src="@mipmap/ic_unit_arrow_down"
@@ -31,7 +32,7 @@
                 android:layout_height="20dp"/>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/ll_food_description_down_up"
+            android:id="@+id/ll_food_search_down_up_check"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
@@ -46,21 +47,53 @@
             <TextView
                 android:textColor="#f00"
                 android:text="推荐食物"
-                android:id="@+id/tv_food_description_down_up"
                 android:layout_marginLeft="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_food_search_down_up"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#f00"
+                android:id="@+id/tv_food_search_up_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/img_food_search_up_down"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
+                android:scaleType="fitXY"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"/>
+        </LinearLayout>
+
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lv_food_search_result"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/lv_food_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </ListView>
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        <ImageView
+            android:id="@+id/img_food_search_animation"
+            android:layout_gravity="center"
+            android:layout_width="66dp"
+            android:layout_height="66dp"/>
+    </FrameLayout>
+
 
 </LinearLayout>

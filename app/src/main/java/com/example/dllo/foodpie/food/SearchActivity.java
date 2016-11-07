@@ -34,6 +34,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private int length;
 
 
+
     @Override
     protected int getLayout() {
         return R.layout.activity_search;
@@ -46,6 +47,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         iBtnSearch = bindView(R.id.iBtn_search_search);
         edtInput = bindView(R.id.edt_food_search);
         iBtnClear = bindView(R.id.iBtn_search_clear);
+
         //详情界面的额点击返回
         iBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +64,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         transaction.commit();
 
         iBtnSearch.setOnClickListener(this);
+        //清除按钮的点击, 没有字的时候, 按钮是隐藏的
         iBtnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,8 +75,10 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initDate() {
+        //注册eventBus
         EventBus.getDefault().register(this);
 
+        //获取到editText的变化状态
         edtInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -82,7 +87,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                //当字数改变时, 切换界面
                 if (isClick && edtInput.getText().toString().length() < length){
                     InputFragment fragment = new InputFragment();
                     FragmentManager manager = getSupportFragmentManager();
@@ -97,7 +102,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (edtInput.getText().toString().length() > 0){
                     iBtnClear.setVisibility(View.VISIBLE);
                 }else{
@@ -105,10 +109,12 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 }
             }
         });
+
+
     }
 
     @Override
-    //搜索按钮
+    //搜索按钮点击事件
     public void onClick(View v) {
         isClick = true;
         if (edtInput.getText().toString().isEmpty()){
@@ -120,6 +126,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             Bundle bundle = new Bundle();
             bundle.putString("name", name);
             resultFragment.setArguments(bundle);
+            //点击切换
             FragmentManager manager1 = getSupportFragmentManager();
             FragmentTransaction transaction1 = manager1.beginTransaction();
             transaction1.replace(R.id.frame_search, resultFragment);
@@ -129,13 +136,16 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    //eventBus 接收第一个界面点击常用时带过来的值
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventSetText(EventText eventText){
+        isClick = true;
         edtInput.setText(eventText.getText());
         edtInput.setSelection(eventText.getText().length());
     }
 
     @Override
+    //解绑eventBus
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);

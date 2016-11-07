@@ -68,6 +68,10 @@ public class FoodResultBean {
         this.items = items;
     }
 
+    public void addData(List<ItemsBean> items) {
+        this.items.addAll(items);
+    }
+
     public static class TagsBean {
         private String type;
         private String name;

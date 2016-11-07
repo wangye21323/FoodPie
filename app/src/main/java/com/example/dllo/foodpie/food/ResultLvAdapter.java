@@ -25,6 +25,11 @@ public class ResultLvAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addBeanData(FoodResultBean foodResultBean){
+        this.foodResultBean.addData(foodResultBean.getItems());
+        notifyDataSetChanged();
+    }
+
     public ResultLvAdapter(Context context) {
         this.context = context;
     }

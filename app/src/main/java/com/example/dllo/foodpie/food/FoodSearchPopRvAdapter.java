@@ -9,19 +9,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
-import com.example.dllo.foodpie.databean.FoodDescriptionPopBean;
+import com.example.dllo.foodpie.databean.FoodSearchPopBean;
 
 /**
  * Created by dllo on 16/11/1.
  */
-public class FoodDescriptionPopRvAdapter extends RecyclerView.Adapter<FoodDescriptionPopRvAdapter.MyPopViewHolder> {
+public class FoodSearchPopRvAdapter extends RecyclerView.Adapter<FoodSearchPopRvAdapter.MyPopViewHolder> {
 
-    private FoodDescriptionPopBean foodDescriptionPopBean;
+//    private FoodDescriptionPopBean foodDescriptionPopBean;
+    private FoodSearchPopBean foodSearchPopBean;
     private Context context;
     private MyPopViewHolder viewHolder;
     private OnClickPopLeftListener onClickPopLeftListener;
 
-    public FoodDescriptionPopRvAdapter(Context context) {
+    public FoodSearchPopRvAdapter(Context context) {
         this.context = context;
     }
 
@@ -29,10 +30,11 @@ public class FoodDescriptionPopRvAdapter extends RecyclerView.Adapter<FoodDescri
         this.onClickPopLeftListener = onClickPopLeftListener;
     }
 
-    public void setFoodDescriptionPopBean(FoodDescriptionPopBean foodDescriptionPopBean) {
-        this.foodDescriptionPopBean = foodDescriptionPopBean;
+    public void setFoodSearchPopBean(FoodSearchPopBean foodSearchPopBean) {
+        this.foodSearchPopBean = foodSearchPopBean;
         notifyDataSetChanged();
     }
+
 
     @Override
     public MyPopViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,18 +45,19 @@ public class FoodDescriptionPopRvAdapter extends RecyclerView.Adapter<FoodDescri
 
     @Override
     public void onBindViewHolder(MyPopViewHolder holder, final int position) {
-        holder.name.setText(foodDescriptionPopBean.getTypes().get(position).getName());
+        holder.name.setText("全部");
+        holder.name.setText(foodSearchPopBean.getTypes().get(position).getName());
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickPopLeftListener.onClickPopLeft(foodDescriptionPopBean.getTypes().get(position).getIndex(), foodDescriptionPopBean.getTypes().get(position).getName());
+                onClickPopLeftListener.onClickPopLeft(foodSearchPopBean.getTypes().get(position).getName(), foodSearchPopBean.getTypes().get(position).getCode());
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return foodDescriptionPopBean.getTypes() == null ? 0 : foodDescriptionPopBean.getTypes().size();
+        return foodSearchPopBean.getTypes() == null ? 0 : foodSearchPopBean.getTypes().size();
     }
 
     public class MyPopViewHolder extends RecyclerView.ViewHolder {

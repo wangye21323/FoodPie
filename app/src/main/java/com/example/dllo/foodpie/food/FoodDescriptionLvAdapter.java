@@ -27,7 +27,6 @@ public class FoodDescriptionLvAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    // TODO: 16/11/4 可以将两个写成一个方法, 进行判断
     public void addBeanData(FoodDescriptionBean foodDescriptionBean){
         this.foodDescriptionBean.addData(foodDescriptionBean.getFoods());
         notifyDataSetChanged();

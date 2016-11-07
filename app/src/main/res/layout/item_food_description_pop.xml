@@ -7,6 +7,7 @@
               android:layout_height="29dp">
 
     <TextView
+        android:textColor="@color/main_text_color"
         android:layout_marginTop="2dp"
         android:id="@+id/tv_food_description_pop_text"
         android:layout_width="wrap_content"

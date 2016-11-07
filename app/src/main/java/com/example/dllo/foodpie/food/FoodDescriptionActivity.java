@@ -5,7 +5,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -111,8 +110,6 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
         adapterRight = new PopRightLvAdapter(this);
 
 
-
-
         //listview的左侧占位
         test.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -205,19 +202,19 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
         llUpOrDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (urlLeft != null){
-                    if (!isClick){
+                if (urlLeft != null) {
+                    if (!isClick) {
                         tvDownOrUp.setText("由低到高");
                         imgDownOrUp.setImageResource(R.mipmap.ic_arrow_up_selected);
                         isClick = !isClick;
-                        String urlToUp = urlLeft+"&order_asc=1";
+                        String urlToUp = urlLeft + "&order_asc=1";
 
                         initGsonRequest(urlToUp);
-                    }else{
+                    } else {
                         tvDownOrUp.setText("由高到低");
                         imgDownOrUp.setImageResource(R.mipmap.ic_arrow_down_selected);
                         isClick = !isClick;
-                        String urlToDown = urlLeft+"&order_asc=0";
+                        String urlToDown = urlLeft + "&order_asc=0";
 
                         initGsonRequest(urlToDown);
                     }
@@ -325,13 +322,13 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
 
     //popWindow页面的网络请求
     private void initPopWeb() {
-        GsonRequest<FoodDescriptionPopBean> gsonRequest = new GsonRequest<FoodDescriptionPopBean>(FoodDescriptionPopBean.class, TheValues.FOOD_DESCRIPTION_LINE,
+        GsonRequest<FoodDescriptionPopBean> gsonRequest =
+                new GsonRequest<FoodDescriptionPopBean>(FoodDescriptionPopBean.class, TheValues.FOOD_DESCRIPTION_LINE,
                 new Response.Listener<FoodDescriptionPopBean>() {
 
                     @Override
                     public void onResponse(FoodDescriptionPopBean response) {
                         //请求成功数据
-
                         adapterPop.setFoodDescriptionPopBean(response);
                         rvLine.setAdapter(adapterPop);
                         GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(), 3);
@@ -405,21 +402,12 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
         final AnimationDrawable anim = (AnimationDrawable) animation.getDrawable();
         anim.start();
 
-        Log.d("FoodDescriptionActivity", "id:" + id);
-        Log.d("FoodDescriptionActivity", "idBefore:" + idBefore);
-        Log.d("FoodDescriptionActivity", "group:" + group);
 
-        if (id == 0){
-            Log.d("FoodDescriptionActivity", "点击了全部");
-            if (group == 0) {
-                urlRight = TheValues.FOOD_DESCRIPTION_DOWN_GROUP_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
-            } else if (group == 1) {
-                urlRight = TheValues.FOOD_DESCRIPTION_DOWN_BRAND_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
-            } else {
-                urlRight = TheValues.FOOD_DESCRIPTION_DOWN_RESTAURANT_BEFORE + idBefore + "" + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
-            }
-        }else{
-                urlRight = "http://food.boohee.com/fb/v1/foods?kind=group&value="+idBefore + ""+"&sub_value=" + id + "" + "&order_by=1&page=1&order_asc=0";
+        //根据传递过来的id, 判断点击的是哪一个属性
+        if (id == 0) {
+            urlRight = TheValues.FOOD_DESCRIPTION_DOWN_GROUP_BEFORE + idBefore + TheValues.FOOD_DESCRIPTION_DOWN_AFTER;
+        } else {
+            urlRight = TheValues.FOOD_DESCRIPTION_DOWN_GROUP_BEFORE + idBefore + "&sub_value=" + id + TheValues.FOOD_DESCRIPTION_DOWN_LINE_AFTER;
         }
 
         initGsonRequest(urlRight);
@@ -431,17 +419,15 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
         tvPopName.setText(name);
         tvDownOrUp.setText("由高到低");
         imgDownOrUp.setImageResource(R.mipmap.ic_arrow_down_selected);
-        Log.d("FoodDescriptionActivity", "group:" + group);
-        Log.d("FoodDescriptionActivity", index);
-        Log.d("FoodDescriptionActivity", "idBefore:" + idBefore);
-        if (group == 0){
-            urlLeft = "http://food.boohee.com/fb/v1/foods?kind=group&value="+idBefore+"&order_by="+ index +"&page=1";
-        }else if (group == 1){
-            urlLeft = "http://food.boohee.com/fb/v1/foods?kind=brand&value="+idBefore+"&order_by="+ index +"&page=1";
-        }else{
-            urlLeft = "http://food.boohee.com/fb/v1/foods?kind=restaurant&value="+idBefore+"&order_by="+ index +"&page=1";
+
+        if (group == 0) {
+
+            urlLeft = TheValues.FOOD_DESCRIPTION_DOWN_GROUP_BEFORE + idBefore + "&order_by=" + index + "&page=1";
+        } else if (group == 1) {
+            urlLeft = TheValues.FOOD_DESCRIPTION_DOWN_BRAND_BEFORE + idBefore + "&order_by=" + index + "&page=1";
+        } else {
+            urlLeft = TheValues.FOOD_DESCRIPTION_DOWN_RESTAURANT_BEFORE + idBefore + "&order_by=" + index + "&page=1";
         }
-        Log.d("FoodDescriptionActivity", urlLeft);
 
         //网络请求
         initGsonRequest(urlLeft);
@@ -452,7 +438,7 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
     }
 
     //网络请求的方法, 传递参数即可
-    private void initGsonRequest(String url){
+    private void initGsonRequest(String url) {
         //开启帧动画
         if (!flag) {
             animation.setVisibility(View.VISIBLE);

@@ -17,6 +17,7 @@ import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.EventText;
 import com.example.dllo.foodpie.databean.SearchBean;
 import com.example.dllo.foodpie.web.GsonRequest;
+import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,9 +46,10 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
 
 
     @Override
+    //搜索界面的大家都在搜的网络请求
     protected void initData() {
-        String url = "http://food.boohee.com/fb/v1/keywords?token=&user_key=&app_version=2.6";
-        GsonRequest<SearchBean> gsonRequest = new GsonRequest<SearchBean>(SearchBean.class, url,
+//        String url = "http://food.boohee.com/fb/v1/keywords?token=&user_key=&app_version=2.6";
+        GsonRequest<SearchBean> gsonRequest = new GsonRequest<SearchBean>(SearchBean.class, TheValues.FOOD_SEARCH_FIRST_HOT,
                 new Response.Listener<SearchBean>() {
                     @Override
                     public void onResponse(SearchBean response) {
@@ -68,11 +70,13 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
 
     @Override
     public void onClickSearch(String name) {
+        //当点击搜索的按钮时, 传数据
         ResultFragment fragment = new ResultFragment();
         Bundle bundle = new Bundle();
         bundle.putString("Title", name);
         fragment.setArguments(bundle);
 
+        //点击搜索, 替换当前的fragment
         FragmentManager manager1 = getFragmentManager();
         FragmentTransaction transaction1 = manager1.beginTransaction();
         transaction1.replace(R.id.frame_search, fragment);
