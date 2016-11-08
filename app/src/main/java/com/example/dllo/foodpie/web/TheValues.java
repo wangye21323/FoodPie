@@ -50,8 +50,13 @@ public final class TheValues {
     public static String FOOD_SEARCH_SECOND_CHECK_BEFORE = "http://food.boohee.com/fb/v1/search?page=1&order_asc=desc&q";
     //食物百科--搜索界面--第二个界面--上拉加载前半部分(代码拼接就是拼接pager和后边的q)
     public static String FOOD_SEARCH_SECOND_UP_REFRESH_BEFORE = "http://food.boohee.com/fb/v1/search?page=";
-    //
-
+    //食物百科--搜索界面--第二个界面--由低到高前半段 + Q
+    public static String FOOD_SEARCH_SECOND_DOWN_TO_UP = "http://food.boohee.com/fb/v1/search?page=1&order_asc=desc&q=";
+    //食物百科--搜索界面--第二个界面--由高到低前半段 + Q
+    public static String FOOD_SEARCH_SECOND_UP_TO_DOWN = "http://food.boohee.com/fb/v1/search?page=1&order_asc=asc&q=";
+    /**
+     * POP界面的点击和第一次进入加载的前半段是一样的
+     */
 
 
 

@@ -31,6 +31,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.userswlwork:pull-to-refresh:1.0.0'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile files('libs/lite-orm-1.9.2.jar')
+    compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
 }
 dependencies {
     compile 'com.wuxiaolong.pullloadmorerecyclerview:library:1.1.1'

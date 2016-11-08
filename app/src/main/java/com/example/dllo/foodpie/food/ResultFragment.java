@@ -267,14 +267,16 @@ public class ResultFragment extends BaseFragment implements OnClickPopLeftListen
                 if (isClick) {
                     tvUpDown.setText("由低到高");
                     imgUpDown.setImageResource(R.mipmap.ic_arrow_up_selected);
-                    urlToUp = "http://food.boohee.com/fb/v1/search?page=1&order_asc=desc&q="+UTF;
+//                    urlToUp = "http://food.boohee.com/fb/v1/search?page=1&order_asc=desc&q="+UTF;
+                    urlToUp = TheValues.FOOD_SEARCH_SECOND_DOWN_TO_UP+UTF;
                     Log.d("ResultFragment22", UTF+"----------");
                     initSearchListView(urlToUp);
                     isClick = !isClick;
                 } else {
                     tvUpDown.setText("由高到低");
                     imgUpDown.setImageResource(R.mipmap.ic_arrow_down_selected);
-                    urlToDown = "http://food.boohee.com/fb/v1/search?page=1&order_asc=asc&q="+UTF;
+//                    urlToDown = "http://food.boohee.com/fb/v1/search?page=1&order_asc=asc&q="+UTF;
+                    urlToDown = TheValues.FOOD_SEARCH_SECOND_UP_TO_DOWN+UTF;
                     initSearchListView(urlToDown);
                     isClick = !isClick;
 
@@ -331,9 +333,11 @@ public class ResultFragment extends BaseFragment implements OnClickPopLeftListen
                 llCheckBox.setVisibility(View.VISIBLE);
                 llUpDown.setVisibility(View.GONE);
             }
-            url = "http://food.boohee.com/fb/v1/search?page=1&order_asc=desc&q=" + UTF;
+
+//            url = "http://food.boohee.com/fb/v1/search?page=1&order_asc=desc&q=" + UTF;
+            url = TheValues.FOOD_SEARCH_SECOND_LV_BEFORE + UTF;
         } else {
-            url = "http://food.boohee.com/fb/v1/search?page=1&order_asc=desc&q=" + nameStr + "&order_by=" + code;
+            url = TheValues.FOOD_SEARCH_SECOND_LV_BEFORE + nameStr + "&order_by=" + code;
             llCheckBox.setVisibility(View.GONE);
             initSearchListView(url);
             if (llUpDown.getVisibility() == View.GONE) {

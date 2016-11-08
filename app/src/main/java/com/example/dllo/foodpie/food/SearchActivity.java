@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseActivity;
 import com.example.dllo.foodpie.databean.EventText;
+import com.example.dllo.foodpie.databean.SearchData;
+import com.example.dllo.foodpie.dbtool.DBTool;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -132,7 +134,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             transaction1.replace(R.id.frame_search, resultFragment);
             transaction1.commit();
 
-
+            SearchData data = new SearchData();
+            data.setName(name);
+            DBTool.getInstance().insertSearchData(data);
         }
     }
 
