@@ -34,18 +34,19 @@
             android:name=".eat.DescriptionActivity"
             android:theme="@style/customTitle">
         </activity>
-        <activity android:name=".eat.HomePageDescriptionActivity"
-                  android:theme="@style/customTitle">
+        <activity
+            android:name=".eat.HomePageDescriptionActivity"
+            android:theme="@style/customTitle">
         </activity>
-
-        <activity android:name=".food.FoodDescriptionActivity"
-                  android:theme="@style/customTitle">
-
+        <activity
+            android:name=".food.FoodDescriptionActivity"
+            android:theme="@style/customTitle">
         </activity>
-
-        <activity android:name=".food.SearchActivity"
-                  android:theme="@style/customTitle">
-
+        <activity
+            android:name=".food.SearchActivity"
+            android:theme="@style/customTitle">
+        </activity>
+        <activity android:name=".food.AnalyzeActivity">
         </activity>
     </application>
 

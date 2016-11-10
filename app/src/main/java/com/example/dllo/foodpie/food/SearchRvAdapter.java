@@ -1,94 +1,179 @@
 package com.example.dllo.foodpie.food;
 
-import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
+import com.example.dllo.foodpie.base.CommonViewHolder;
+import com.example.dllo.foodpie.databean.HistoryBean;
 import com.example.dllo.foodpie.databean.SearchBean;
+import com.example.dllo.foodpie.databean.SearchData;
+import com.example.dllo.foodpie.dbtool.DBTool;
+
+import java.util.List;
 
 /**
  * Created by dllo on 16/11/5.
  */
-public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SearchRvAdapter extends RecyclerView.Adapter<CommonViewHolder> {
     private SearchBean searchBean;
-    private Context context;
-    private MySearchViewHolder viewHolder;
+    private List<HistoryBean> historyBeen;//历史记录
     private SearchOnClickListener onClickListener;
 
-    private static final int TYPE_FIRST = 0;
-    private static final int TYPE_OTHER = 1;
+    private static final int TYPE_HISTORY = 3;
+    private static final int TYPE_TITLE = 0;
+    private static final int TYPE_SEARCH_KEY = 1;
+    private static final int TYPE_CLEAR_HISTORY = 4;
+
+
+    //设置历史记录
+    public void setHistoryBeen(List<HistoryBean> historyBeen) {
+        this.historyBeen = historyBeen;
+        notifyDataSetChanged();
+    }
 
     public void setOnClickListener(SearchOnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
 
+    //设置网上获取的 大家都在搜
     public void setSearchBean(SearchBean searchBean) {
         this.searchBean = searchBean;
         notifyDataSetChanged();
     }
 
-    public SearchRvAdapter(Context context) {
-        this.context = context;
-    }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_OTHER) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_search, parent, false);
-            viewHolder = new MySearchViewHolder(view);
-            return viewHolder;
-        } else {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_search_all, parent, false);
-            RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(view) {
-            };
-            return viewHolder;
+    public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        CommonViewHolder commonViewHolder = null;
+        switch (viewType) {
+            case TYPE_TITLE:
+                commonViewHolder = CommonViewHolder.getViewHolder(parent, R.layout.item_search_title);
+                break;
+            case TYPE_HISTORY:
+                commonViewHolder = CommonViewHolder.getViewHolder(parent, R.layout.item_history);
+                break;
+            case TYPE_CLEAR_HISTORY:
+                commonViewHolder = CommonViewHolder.getViewHolder(parent, R.layout.item_search_clear_history);
+                break;
+            case TYPE_SEARCH_KEY:
+                commonViewHolder = CommonViewHolder.getViewHolder(parent, R.layout.item_search);
+                break;
         }
+
+        return commonViewHolder;
+    }
+
+    //判断是否有历史记录
+    private boolean hasHead() {
+        return !(historyBeen == null || historyBeen.size() == 0);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_OTHER) {
-            final int pos = position - 1;
-            MySearchViewHolder viewHolder = (MySearchViewHolder) holder;
-            viewHolder.name.setText(searchBean.getKeywords().get(pos));
-            viewHolder.ll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onClickListener.onClickSearch(searchBean.getKeywords().get(pos));
+    public void onBindViewHolder(CommonViewHolder holder, int position) {
+        int type = getItemViewType(position);
+        switch (type) {
+            case TYPE_TITLE:
+                if (position == 0 && hasHead()) {
+                    holder.setText(R.id.item_search_title_tv, "最近搜过");
+                } else {
+                    holder.setText(R.id.item_search_title_tv, "大家都在搜");
                 }
-            });
+                break;
+            case TYPE_HISTORY:
+                int historyPos = position - 1;//-1 因为上面有个标题 历史记录
+                String historyName = historyBeen.get(historyPos).getName();
+                holder.setText(R.id.tv_history, historyName);
+                holder.setItemClick(new NameClickListener(historyName));
+                break;
+            case TYPE_CLEAR_HISTORY:
+                holder.setItemClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //adapter里的历史记录清空
+
+                        SearchRvAdapter.this.historyBeen = null;
+                        notifyDataSetChanged();
+                        DBTool.getInstance().deleteSearchData(SearchData.class);
+
+                    }
+                });
+                //清除历史记录
+                break;
+            case TYPE_SEARCH_KEY:
+                int keyPos = 0;
+                if (hasHead()) {
+                    keyPos = position - 1 - historyBeen.size() - 1 - 1;
+                } else {
+                    keyPos = position - 1;
+                }
+                String name = searchBean.getKeywords().get(keyPos);
+
+                holder.setText(R.id.tv_food_search_name, name);
+                holder.setItemClick(new NameClickListener(name));
+                break;
+        }
+
+
+    }
+
+    //点击监听
+    class NameClickListener implements View.OnClickListener {
+        private String name;
+
+        public NameClickListener(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (onClickListener != null) {
+                onClickListener.onClickSearch(name);
+            }
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-
-        return position == 0 ? TYPE_FIRST : TYPE_OTHER;
+        if (hasHead()) {
+            //有历史记录
+            if (position == 0) {
+                return TYPE_TITLE;
+            } else if (position > 0 && position <= historyBeen.size()) {
+                return TYPE_HISTORY;
+            } else if (position == historyBeen.size() + 1) {
+                return TYPE_CLEAR_HISTORY;//大家都在搜
+            } else if (position == historyBeen.size() + 2) {
+                return TYPE_TITLE;
+            } else {
+                return TYPE_SEARCH_KEY;
+            }
+        } else {
+            if (position == 0) {
+                return TYPE_TITLE;
+            } else {
+                return TYPE_SEARCH_KEY;
+            }
+        }
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-        Log.d("zzz", "----------");
         GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
-
+        final int spanCount = gridLayoutManager.getSpanCount();
 
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                Log.d("zzz", "position:" + position);
-                if (position == 0) {
-                    return 2;
-                } else {
+                int type = getItemViewType(position);
+                if (type == TYPE_SEARCH_KEY) {
                     return 1;
+                } else {
+                    return spanCount;
                 }
             }
         });
@@ -97,21 +182,16 @@ public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        if (searchBean == null) {
-            return 0;
+        int count = 0;
+        if (searchBean != null) {
+            count += searchBean.getKeywords().size() + 1;
         }
-        return searchBean.getKeywords() == null ? 1 : searchBean.getKeywords().size() + 1;
+        if (hasHead()) {
+            count += historyBeen.size() + 2;//标题 和清空历史记录
+        }
+
+        return count;
     }
 
-    public class MySearchViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView name;
-        private LinearLayout ll;
-
-        public MySearchViewHolder(View itemView) {
-            super(itemView);
-            name = (TextView) itemView.findViewById(R.id.tv_food_search_name);
-            ll = (LinearLayout) itemView.findViewById(R.id.ll_food_search);
-        }
-    }
 }

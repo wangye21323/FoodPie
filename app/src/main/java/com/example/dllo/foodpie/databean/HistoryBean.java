@@ -17,4 +17,14 @@ public class HistoryBean {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof HistoryBean){
+            HistoryBean other = (HistoryBean) o;
+            return this.getName().equals(other.getName());
+        }
+        return false;
+
+    }
 }

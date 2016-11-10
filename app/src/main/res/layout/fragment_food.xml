@@ -97,6 +97,7 @@
                 android:background="#9E9595"/>
 
             <LinearLayout
+                android:id="@+id/ll_food_analyze"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

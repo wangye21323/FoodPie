@@ -1,5 +1,6 @@
 package com.example.dllo.foodpie.food;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -34,7 +35,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private ImageButton iBtnClear;
     private boolean isClick = false;
     private int length;
-
+    private ResultFragment resultFragment;
+    private InputFragment inputFragment;
 
 
     @Override
@@ -44,6 +46,17 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initViews() {
+
+        inputFragment = new InputFragment();
+        Intent intent = getIntent();
+        String text = intent.getStringExtra("analyze");
+
+        if (text != null){
+            Bundle bundle = new Bundle();
+            bundle.putString("analyze", text);
+            inputFragment.setArguments(bundle);
+        }
+
         fram = bindView(R.id.frame_search);
         iBtnBack = bindView(R.id.iBtn_search_back);
         iBtnSearch = bindView(R.id.iBtn_search_search);
@@ -59,7 +72,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         });
 
         //首次进入是搜索fragment
-        InputFragment inputFragment = new InputFragment();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frame_search, inputFragment);
@@ -79,6 +91,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     protected void initDate() {
         //注册eventBus
         EventBus.getDefault().register(this);
+
+        resultFragment =  new ResultFragment();
 
         //获取到editText的变化状态
         edtInput.addTextChangedListener(new TextWatcher() {
@@ -113,6 +127,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         });
 
 
+
     }
 
     @Override
@@ -122,7 +137,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         if (edtInput.getText().toString().isEmpty()){
             Toast.makeText(this, "输入不能为空哦", Toast.LENGTH_SHORT).show();
         }else{
-            ResultFragment resultFragment = new ResultFragment();
+//            ResultFragment resultFragment =  new ResultFragment();
             String name = edtInput.getText().toString();
             //bundle最好放在提交的上边, 防止错误
             Bundle bundle = new Bundle();

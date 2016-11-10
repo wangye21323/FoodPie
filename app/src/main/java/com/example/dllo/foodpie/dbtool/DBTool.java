@@ -64,6 +64,17 @@ public class DBTool {
         });
     }
 
+    //查询方法按照id      Student student = liteOrm.queryById(student1.getId(), Student.class);
+//                      OrmLog.i(TAG, student);
+    public void queryByIdSearchData(final String name, final Class<SearchData> searchData){
+        mThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                liteOrm.queryById(name,searchData);
+            }
+        });
+    }
+
     //查询方法
     public void queryAllSearchData(final OnQueryListener onQueryListener){
         //查询

@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
+import com.example.dllo.foodpie.databean.EventAnalyzeBean;
 import com.example.dllo.foodpie.databean.FoodResultBean;
 import com.example.dllo.foodpie.databean.FoodSearchPopBean;
 import com.example.dllo.foodpie.web.GsonRequest;
@@ -31,13 +32,15 @@ import com.example.dllo.foodpie.web.VolleySingleton;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
  * Created by dllo on 16/11/5.
  */
-public class ResultFragment extends BaseFragment implements OnClickPopLeftListener {
+public class ResultFragment extends BaseFragment implements OnClickPopLeftListener, OnClickAnalyzeListener {
 
     private PullToRefreshListView lv;
     private String strUTF8;
@@ -65,6 +68,7 @@ public class ResultFragment extends BaseFragment implements OnClickPopLeftListen
     private String urlToUp;
     private String urlToDown;
     private TextView tvPop;
+    private String text;
 
 
     @Override
@@ -172,10 +176,13 @@ public class ResultFragment extends BaseFragment implements OnClickPopLeftListen
 
     @Override
     protected void initData() {
+
         //接收来自上一个界面的传值
         Bundle arguments = getArguments();
         String name = arguments.getString("name");
         String title = arguments.getString("Title");
+        text = arguments.getString("Text");
+
 
         //传递过来的汉字转换成为
         if (name != null) {
@@ -194,7 +201,41 @@ public class ResultFragment extends BaseFragment implements OnClickPopLeftListen
         }
         //点击搜索时的网络请求, 首次进入第二个界面的显示
         String url = TheValues.FOOD_SEARCH_SECOND_LV_BEFORE + UTF;
-        initSearchListView(url);
+        // TODO: 16/11/10 在这里接收一个值, 判断进来的是那一次的点击
+        //开启帧动画
+        if (!flag) {
+            animation.setVisibility(View.VISIBLE);
+        }
+        //获取到AnimationDrawable动画对象
+        animation.setImageResource(R.drawable.animation_food);
+        final AnimationDrawable anim = (AnimationDrawable) animation.getDrawable();
+        anim.start();
+
+        GsonRequest<FoodResultBean> gsonRequest = new GsonRequest<FoodResultBean>(FoodResultBean.class, url,
+                new Response.Listener<FoodResultBean>() {
+
+                    @Override
+                    public void onResponse(FoodResultBean response) {
+                        if (text != null){
+                            adapter.setFoodResultBeans(text, response);
+                        }else{
+                            adapter.setFoodResultBean(response);
+                        }
+                        lv.setAdapter(adapter);
+                        animation.setVisibility(View.INVISIBLE);
+                        flag = false;
+                        anim.stop();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        VolleySingleton.getInstance().addRequest(gsonRequest);
+        if (text != null){
+            adapter.setOnClickAnalyzeListener(this);
+        }
         //推荐食物部分的点击事件, 切换checkbox
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -284,6 +325,7 @@ public class ResultFragment extends BaseFragment implements OnClickPopLeftListen
 
             }
         });
+
     }
 
     //listView的网络请求方法
@@ -350,4 +392,23 @@ public class ResultFragment extends BaseFragment implements OnClickPopLeftListen
         }
         popUpWindow.dismiss();
     }
+
+    @Override
+    public void onAnalyzeClick(String code, String name) {
+//        Log.d("ResultFragment111", code);
+//        Intent intent = new Intent(getContext(), AnalyzeActivity.class);
+//        intent.putExtra("Code", code);
+//        intent.putExtra("Text", text);
+//        startActivity(intent);
+
+
+        EventAnalyzeBean bean = new EventAnalyzeBean();
+        bean.setCode(code);
+        bean.setText(text);
+        bean.setName(name);
+        EventBus.getDefault().post(bean);
+        getActivity().finish();
+    }
+
+
 }

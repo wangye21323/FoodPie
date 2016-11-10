@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -30,6 +32,7 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
     private FoodAdapter adapterBrand;
     private FoodAdapter adapterChain;
     private RelativeLayout search;
+    private LinearLayout llAnalyze;
 
     @Override
     protected int getLayout() {
@@ -47,6 +50,16 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
 
         search = bindView(R.id.rl_food_search);
         search.setOnClickListener(this);
+        llAnalyze = bindView(R.id.ll_food_analyze);
+        //食物百科搜索对比
+        llAnalyze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "搜索对比", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), AnalyzeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

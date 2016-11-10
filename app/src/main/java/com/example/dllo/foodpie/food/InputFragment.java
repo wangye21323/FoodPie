@@ -5,17 +5,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
@@ -45,7 +42,8 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
     private FrameLayout fram;
     private RelativeLayout rvDel;
     private LinearLayout llHistory;
-    private ListView lvHistory;
+    private String text;
+
 
     @Override
     protected int getLayout() {
@@ -56,10 +54,10 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
     protected void initView() {
         rvSearch = bindView(R.id.rv_food_search_all);
         rvDel = bindView(R.id.rv_food_search_del);
-        adapter = new SearchRvAdapter(MyApp.getContext());
+        adapter = new SearchRvAdapter();
         llHistory = bindView(R.id.ll_food_search_history);
-        lvHistory = bindView(R.id.lv_food_search_near);
-        GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(),2);
+        //        lvHistory = bindView(R.id.lv_food_search_near);
+        GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(), 2);
         rvSearch.setLayoutManager(manager);
         rvSearch.setAdapter(adapter);
     }
@@ -71,7 +69,7 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
 
         getHistory();
 
-//        String url = "http://food.boohee.com/fb/v1/keywords?token=&user_key=&app_version=2.6";
+        //        String url = "http://food.boohee.com/fb/v1/keywords?token=&user_key=&app_version=2.6";
         GsonRequest<SearchBean> gsonRequest = new GsonRequest<SearchBean>(SearchBean.class, TheValues.FOOD_SEARCH_FIRST_HOT,
                 new Response.Listener<SearchBean>() {
                     @Override
@@ -79,9 +77,6 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
                         //请求成功数据
                         adapter.setSearchBean(response);
 
-
-                        RecyclerViewHeader header = bindView(R.id.rv_header);
-                        header.attachTo(rvSearch, true);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -92,33 +87,38 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
         VolleySingleton.getInstance().addRequest(gsonRequest);
         adapter.setOnClickListener(this);
 
-        //历史记录点击清除按钮
-        rvDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rvDel.getVisibility()==View.VISIBLE){
-                    DBTool.getInstance().deleteSearchData(SearchData.class);
-                    llHistory.setVisibility(View.GONE);
-                }
-            }
-        });
+
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            text = arguments.getString("analyze");
+        }
+
     }
 
     //获取历史记录
     private void getHistory() {
         //当点击大家都在搜其中一项时, 把历史显现出来
-        llHistory.setVisibility(View.VISIBLE);
-        final ArrayList<HistoryBean> been = new ArrayList<>();
         DBTool.getInstance().queryAllSearchData(new DBTool.OnQueryListener() {
             @Override
             public void onQuery(List<SearchData> person) {
+
+                ArrayList<HistoryBean> been = new ArrayList<>();
                 for (int i = 0; i < person.size(); i++) {
                     HistoryBean historyBean = new HistoryBean(person.get(i).getName());
                     been.add(historyBean);
                 }
-                HistoryLvAdapter adapter = new HistoryLvAdapter(MyApp.getContext());
-                adapter.setHistoryBean(been);
-                lvHistory.setAdapter(adapter);
+
+                for (int i = 0; i < been.size(); i++) {
+                    for (int j = i + 1; j < been.size(); j++) {
+                        if(been.get(i).equals(been.get(j))){
+                            been.remove(j);
+                            j--;
+                        }
+                    }
+                }
+
+                adapter.setHistoryBeen(been);
+
             }
         });
 
@@ -129,6 +129,7 @@ public class InputFragment extends BaseFragment implements SearchOnClickListener
         //当点击搜索的按钮时, 传数据
         ResultFragment fragment = new ResultFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("Text", text);
         bundle.putString("Title", name);
         fragment.setArguments(bundle);
 
