@@ -46,7 +46,11 @@
             android:name=".food.SearchActivity"
             android:theme="@style/customTitle">
         </activity>
-        <activity android:name=".food.AnalyzeActivity">
+        <activity
+            android:name=".food.AnalyzeActivity"
+            android:theme="@style/customTitle">
+        </activity>
+        <activity android:name=".LogonActivity">
         </activity>
     </application>
 

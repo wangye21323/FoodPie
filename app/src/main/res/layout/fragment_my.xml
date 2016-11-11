@@ -49,6 +49,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"/>
                 <Button
+                    android:id="@+id/btn_my_to_load"
                     android:layout_gravity="center"
                     android:layout_marginTop="4dp"
                     android:text="点击登录"

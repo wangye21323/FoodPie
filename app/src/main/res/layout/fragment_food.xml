@@ -1,287 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants">
+
+    <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@mipmap/img_home_bg">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="@mipmap/img_home_bg">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="食物派"
+                    android:textColor="#fff"
+                    android:textSize="20sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_food_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="查询食物信息"
+                    android:textColor="#fff"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_food_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tv_food_tv"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="25dp"
+                    android:background="#fff">
+
+                    <ImageView
+                        android:id="@+id/img_food_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_home_search"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@id/img_food_img"
+                        android:text="请输入食物名称"
+                        android:textColor="#FF5A5F"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="食物派"
-                android:textColor="#fff"
-                android:textSize="20sp"/>
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp">
 
-            <TextView
-                android:id="@+id/tv_food_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="查询食物信息"
-                android:textColor="#fff"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@mipmap/ic_home_analysis"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="饮食分析"/>
+                </LinearLayout>
+
+                <!--设置下划线-->
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#9E9595"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_food_analyze"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:src="@mipmap/ic_home_compare"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="搜索对比"/>
+                </LinearLayout>
+
+                <!--设置下划线-->
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#9E9595"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:src="@mipmap/ic_home_scan_compare"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="扫码对比"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/rl_food_search"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_below="@id/tv_food_tv"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="25dp"
-                android:background="#fff">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
                 <ImageView
-                    android:id="@+id/img_food_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/ic_home_search"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_back"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@id/img_food_img"
-                    android:text="请输入食物名称"
-                    android:textColor="#FF5A5F"/>
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="15dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="15dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#fff"
-                android:orientation="vertical">
-
-                <ImageButton
+                <RelativeLayout
+                    android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="4dp"
                     android:background="@null"
-                    android:src="@mipmap/ic_home_analysis"/>
+                    >
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:text="食物分类"
+                        />
+                </RelativeLayout>
+
+                <com.example.dllo.foodpie.weiget.MyGridView
+                    android:id="@+id/gv_food_type"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="饮食分析"/>
-            </LinearLayout>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="27dp"
+                    android:background="@null"
+                    android:numColumns="3">
 
-            <!--设置下划线-->
-            <ImageView
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#9E9595"/>
+                </com.example.dllo.foodpie.weiget.MyGridView>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_food_analyze"
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#fff"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-                <ImageButton
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_back"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@null"
-                    android:src="@mipmap/ic_home_compare"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#fff"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:text="热门品牌"
+                        />
+                </RelativeLayout>
+
+                <com.example.dllo.foodpie.weiget.MyGridView
+                    android:id="@+id/gv_food_brand"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="搜索对比"/>
-            </LinearLayout>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="27dp"
+                    android:numColumns="3">
 
-            <!--设置下划线-->
-            <ImageView
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#9E9595"/>
+                </com.example.dllo.foodpie.weiget.MyGridView>
+            </RelativeLayout>
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#fff"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@null"
-                    android:src="@mipmap/ic_home_scan_compare"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_back"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="扫码对比"/>
-            </LinearLayout>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#fff">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="连锁餐饮"
+                        />
+                </RelativeLayout>
+
+                <com.example.dllo.foodpie.weiget.MyGridView
+                    android:id="@+id/gv_food_chain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="27dp"
+                    android:numColumns="3">
+
+                </com.example.dllo.foodpie.weiget.MyGridView>
+            </RelativeLayout>
+
+
         </LinearLayout>
 
-        <RelativeLayout
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_back"/>
-            <RelativeLayout
-                android:layout_marginTop="4dp"
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@null"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:background="@null"
-                    android:layout_centerVertical="true"
-                    android:text="食物分类"
-                    />
-            </RelativeLayout>
-
-            <com.example.dllo.foodpie.weiget.MyGridView
-                android:layout_marginTop="27dp"
-                android:id="@+id/gv_food_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@null"
-                android:numColumns="3">
-
-            </com.example.dllo.foodpie.weiget.MyGridView>
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_back"/>
-            <RelativeLayout
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="#fff"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:text="热门品牌"
-                    />
-            </RelativeLayout>
-
-            <com.example.dllo.foodpie.weiget.MyGridView
-                android:layout_marginTop="27dp"
-                android:id="@+id/gv_food_brand"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:numColumns="3">
-
-            </com.example.dllo.foodpie.weiget.MyGridView>
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_back"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="#fff">
-
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:text="连锁餐饮"
-                    />
-            </RelativeLayout>
-
-            <com.example.dllo.foodpie.weiget.MyGridView
-                android:layout_marginTop="27dp"
-                android:id="@+id/gv_food_chain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:numColumns="3">
-
-            </com.example.dllo.foodpie.weiget.MyGridView>
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

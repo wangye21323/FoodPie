@@ -3,8 +3,10 @@ package com.example.dllo.foodpie.food;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -32,6 +34,9 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
     private String name;
     private RecyclerView rv;
     private AnalyzeRvAdapter adapter;
+    private ImageView imgDelLeft;
+    private ImageView imgDelRight;
+    private LinearLayout llBack;
 
     @Override
     protected int getLayout() {
@@ -51,17 +56,25 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
         rv = bindView(R.id.rv_analyze);
         adapter = new AnalyzeRvAdapter();
         rv.setAdapter(adapter);
+
+        imgDelLeft = bindView(R.id.img_food_analyze_add_left_del);
+        imgDelRight = bindView(R.id.img_food_analyze_add_right_del);
+        llBack = bindView(R.id.ll_food_analyze_title_back);
+
+        imgDelLeft.setOnClickListener(this);
+        imgDelRight.setOnClickListener(this);
+        llBack.setOnClickListener(this);
     }
 
     @Override
     protected void initDate() {
-
         //注册eventBus
         EventBus.getDefault().register(this);
     }
 
     private void initAnalyzeWeb() {
         String imgUrl = "http://food.boohee.com/fb/v1/foods/" + code + "/brief?token=&user_key=&app_version=2.6";
+        Log.d("AnalyzeActivity11", imgUrl);
         initAnalyzeData(imgUrl);
 
     }
@@ -74,12 +87,22 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
                     public void onResponse(FoodAnalyzeBean response) {
                         if (text.equals("analyzeL")) {
                             tvLeft.setText(name);
-                            adapter.setFoodAnalyzeBean(response);
-                            GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(), 3);
+                            //清空按键的显现
+                            imgDelLeft.setVisibility(View.VISIBLE);
+                            //设置img为不可点击状态
+                            imgAddLeft.setEnabled(false);
+                            //给adapter传值, 带上属性左右
+                            adapter.setFoodAnalyzeBean("Left",response);
+                            GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(), 1);
                             rv.setLayoutManager(manager);
                             VolleySingleton.getInstance().getImage(response.getLarge_image_url(), imgAddLeft);
                         } else {
+                            imgDelRight.setVisibility(View.VISIBLE);
                             tvRight.setText(name);
+                            imgAddRight.setEnabled(false);
+                            adapter.setFoodAnalyzeBean("Right",response);
+                            GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(), 1);
+                            rv.setLayoutManager(manager);
                             VolleySingleton.getInstance().getImage(response.getLarge_image_url(), imgAddRight);
                         }
                     }
@@ -104,6 +127,25 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
                 Intent intentRight = new Intent(this, SearchActivity.class);
                 intentRight.putExtra("analyze", "analyzeR");
                 startActivity(intentRight);
+                break;
+            case R.id.img_food_analyze_add_left_del:
+                //清除按钮, 清除对应行数的内容
+                adapter.clearLocation("Left");
+                imgDelLeft.setVisibility(View.GONE);
+                imgAddLeft.setImageResource(R.mipmap.add);
+                //img点击可用
+                imgAddLeft.setEnabled(true);
+                tvLeft.setText("");
+                break;
+            case R.id.img_food_analyze_add_right_del:
+                adapter.clearLocation("Right");
+                imgDelRight.setVisibility(View.GONE);
+                imgAddRight.setImageResource(R.mipmap.add);
+                imgAddRight.setEnabled(true);
+                tvRight.setText("");
+                break;
+            case R.id.ll_food_analyze_title_back:
+                finish();
                 break;
         }
     }

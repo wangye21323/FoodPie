@@ -8,6 +8,64 @@
 
 
     <include layout="@layout/title_load"/>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="20sp"
+                android:text="账号:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_marginLeft="6dp"
+                android:background="@null"
+                android:hint="请输入账号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="130dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="20sp"
+                android:text="密码:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/edt_load_password"
+                android:layout_marginLeft="6dp"
+                android:background="@null"
+                android:hint="请输入密码"
+                android:password="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:text="登录"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="170dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_centerInParent="true"
         android:orientation="vertical"
@@ -77,6 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/logon"
                     android:layout_gravity="center"
                     android:src="@mipmap/ic_login_boohee"
                     android:layout_width="wrap_content"

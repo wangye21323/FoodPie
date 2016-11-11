@@ -11,6 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.dllo.foodpie.food.AnalyzeActivity">
 
+    <include layout="@layout/title_analyze"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="170dp">
@@ -59,18 +60,39 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/img_food_analyze_add_right"
             android:layout_marginLeft="20dp"
-
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/food_vs"
             android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/img_food_analyze_add_left_del"
+            android:visibility="gone"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="27dp"
+            android:layout_toLeftOf="@id/food_vs"
+            android:src="@mipmap/ic_delete_pressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/img_food_analyze_add_right_del"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="27dp"
+            android:layout_toRightOf="@id/food_vs"
+            android:src="@mipmap/ic_delete_pressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
     <TextView
+        android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:gravity="center"
         android:text="营养元素"/>
     <android.support.v7.widget.RecyclerView
+        android:background="#fff"
         android:id="@+id/rv_analyze"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
