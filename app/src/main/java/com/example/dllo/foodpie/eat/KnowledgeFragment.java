@@ -128,7 +128,7 @@ public class KnowledgeFragment extends BaseFragment implements OnClickItem {
     }
 
     @Override
-    public void onClick(String link) {
+    public void onClick(String link, String title) {
         Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
         intent.putExtra("Web", link);
         intent.putExtra("Text","咨询详情");

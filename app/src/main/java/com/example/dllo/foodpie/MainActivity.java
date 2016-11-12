@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity {
     private MyFragment myFragment;
     private EatFragment eatFragment;
     private FoodFragment foodFragment;
+    private String user;
 
 
     @Override
@@ -47,10 +48,15 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initDate() {
 
+        //注册eventBus
+//        EventBus.getDefault().register(this);
+
+
         myFragment = new MyFragment();
         eatFragment = new EatFragment();
         foodFragment = new FoodFragment();
         manager = getSupportFragmentManager();
+
 
         //第一次载入界面时显示第一个界面
         initLast(rbMainFood);
@@ -58,6 +64,7 @@ public class MainActivity extends BaseActivity {
         transaction = manager.beginTransaction();
         transaction.replace(R.id.frame_main, foodFragment);
         transaction.commit();
+
 
         //首页的下方RadioButton的点击切换
         rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -96,4 +103,5 @@ public class MainActivity extends BaseActivity {
             last = radioButton;
         }
     }
+
 }

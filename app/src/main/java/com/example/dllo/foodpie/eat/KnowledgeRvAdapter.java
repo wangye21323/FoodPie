@@ -56,7 +56,7 @@ public class KnowledgeRvAdapter extends RecyclerView.Adapter<KnowledgeRvAdapter.
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItem.onClick(knowledgeBean.getFeeds().get(position).getLink());
+                onClickItem.onClick(knowledgeBean.getFeeds().get(position).getLink(), knowledgeBean.getFeeds().get(position).getTitle());
             }
         });
     }

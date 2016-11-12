@@ -59,7 +59,7 @@ public class TestRvAdapter extends RecyclerView.Adapter<TestRvAdapter.MyViewHold
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItem.onClick(testBean.getFeeds().get(position).getLink());
+                onClickItem.onClick(testBean.getFeeds().get(position).getLink(), testBean.getFeeds().get(position).getTitle());
             }
         });
     }

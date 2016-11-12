@@ -33,6 +33,7 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
     private FoodAdapter adapterChain;
     private RelativeLayout search;
     private LinearLayout llAnalyze;
+    private String user;
 
     @Override
     protected int getLayout() {
@@ -60,6 +61,8 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override
@@ -92,6 +95,9 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
         adapterType.setOnClickFoodListener(this);
         adapterBrand.setOnClickFoodListener(this);
         adapterChain.setOnClickFoodListener(this);
+
+
+
     }
 
 

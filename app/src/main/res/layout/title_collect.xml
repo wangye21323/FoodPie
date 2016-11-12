@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:background="#fff"
+              android:layout_height="48dp">
+
+    <LinearLayout
+        android:id="@+id/ll_food_collect_title_back"
+        android:layout_marginLeft="4dp"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_marginLeft="5dp"
+            android:id="@+id/img_collect_img"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@mipmap/ic_back_dark_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="登录"
+            android:id="@+id/tv_food_collect_back_name"
+            android:layout_marginLeft="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/img_load_img"
+            android:layout_toEndOf="@+id/img_load_img"
+            android:layout_alignBottom="@+id/img_load_img"
+            android:layout_toRightOf="@+id/img_load_img"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_food_description_all"
+        android:layout_marginRight="6dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_food_description_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/img_food_description_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -74,7 +74,7 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
                 holder.ll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onClickItem.onClick(beautyFoodBean.getFeeds().get(position).getLink());
+                        onClickItem.onClick(beautyFoodBean.getFeeds().get(position).getLink(), beautyFoodBean.getFeeds().get(position).getTitle());
                     }
                 });
                 break;
@@ -92,7 +92,7 @@ public class BeautyFoodRvAdapter extends RecyclerView.Adapter<BeautyFoodRvAdapte
                 holder.llElse.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onClickItem.onClick(beautyFoodBean.getFeeds().get(position).getLink());
+                        onClickItem.onClick(beautyFoodBean.getFeeds().get(position).getLink(), beautyFoodBean.getFeeds().get(position).getTitle());
                     }
                 });
                 break;

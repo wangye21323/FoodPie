@@ -13,7 +13,6 @@ import com.example.dllo.foodpie.base.BaseFragment;
 import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.TestBean;
 import com.example.dllo.foodpie.web.GsonRequest;
-import com.example.dllo.foodpie.web.SingleSimpleThreadPool;
 import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
@@ -45,27 +44,21 @@ public class TestFragment extends BaseFragment implements OnClickItem {
 
     @Override
     protected void initData() {
-        //开启网络请求
-        SingleSimpleThreadPool.getSimpleThreadPool().getPoolExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                GsonRequest<TestBean> gsonRequest = new GsonRequest<TestBean>(TestBean.class, TheValues.EAT_TEST,
-                        new Response.Listener<TestBean>() {
-                            @Override
-                            public void onResponse(TestBean response) {
-                                adapter.setTestBean(response);
-                                manager = new LinearLayoutManager(MyApp.getContext());
-                                rvTest.setLinearLayout();
-                            }
-                        }, new Response.ErrorListener() {
+        GsonRequest<TestBean> gsonRequest = new GsonRequest<TestBean>(TestBean.class, TheValues.EAT_TEST,
+                new Response.Listener<TestBean>() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-
+                    public void onResponse(TestBean response) {
+                        adapter.setTestBean(response);
+                        manager = new LinearLayoutManager(MyApp.getContext());
+                        rvTest.setLinearLayout();
                     }
-                });
-                VolleySingleton.getInstance().addRequest(gsonRequest);
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
             }
         });
+        VolleySingleton.getInstance().addRequest(gsonRequest);
 
         //上拉下拉方法
         pullAndDownToFresh();
@@ -124,10 +117,11 @@ public class TestFragment extends BaseFragment implements OnClickItem {
     }
 
     @Override
-    public void onClick(String link) {
+    public void onClick(String link, String title) {
         Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
         intent.putExtra("Web", link);
         intent.putExtra("Text","咨询详情");
+        intent.putExtra("Title", title);
         startActivity(intent);
     }
 

@@ -123,7 +123,7 @@ public class HomePageFragment extends BaseFragment implements OnClickItem {
     }
 
     @Override
-    public void onClick(String link) {
+    public void onClick(String link, String title) {
         if (link.length() > 6){
             Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
             intent.putExtra("Web", link);

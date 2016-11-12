@@ -8,11 +8,14 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.dllo.foodpie.R;
 import com.example.dllo.foodpie.base.BaseActivity;
+import com.example.dllo.foodpie.databean.CollectBean;
+import com.example.dllo.foodpie.dbtool.CollectDBTool;
 
 public class DescriptionActivity extends BaseActivity implements View.OnTouchListener {
 
@@ -32,6 +35,11 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
     //用于计算手指滑动的速度。
     private VelocityTracker mVelocityTracker;
     private RelativeLayout rl;
+    private RelativeLayout rlShare;
+    private String title;
+    private boolean isClick = false;
+    private ImageView imgHeart;
+    private TextView tvCollect;
 
 
     @Override
@@ -51,8 +59,36 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
             }
         });
         iBtnBack = bindView(R.id.iBtn_Eat_back);
+
+        imgHeart = bindView(R.id.img_eat_test_heart);
+        tvCollect = bindView(R.id.tv_eat_test_text);
+
         tvDescription = bindView(R.id.tv_eat_description);
         rl = bindView(R.id.rl_eat_description_back);
+        rlShare = bindView(R.id.rv_description_share);
+        rlShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isClick){
+                    imgHeart.setImageResource(R.mipmap.ic_favorate_checked);
+                    tvCollect.setText("已收藏");
+                    tvCollect.setSelected(true);
+                    CollectBean bean = new CollectBean();
+                    bean.setTitle(title);
+                    bean.setUrl(urlIntent);
+                    CollectDBTool.getInstance().insertCollectBean(bean);
+//                    String title1 = CollectDBTool.getInstance().queryByIdCollectBean(title, CollectBean.class);
+                    isClick = !isClick;
+                }else{
+                    tvCollect.setSelected(false);
+                    tvCollect.setText("收藏");
+                    imgHeart.setImageResource(R.mipmap.ic_favorate_unchecked);
+                    CollectDBTool.getInstance().deleteCollectBean(CollectBean.class);
+                    isClick = !isClick;
+                }
+
+            }
+        });
     }
 
     @Override
@@ -60,6 +96,7 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
         Intent intent = getIntent();
         urlIntent = intent.getStringExtra("Web");
         text = intent.getStringExtra("Text");
+        title = intent.getStringExtra("Title");
         tvDescription.setText(text);
 
         webView.loadUrl(urlIntent);

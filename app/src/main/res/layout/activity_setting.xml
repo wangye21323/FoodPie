@@ -129,6 +129,7 @@
         android:layout_height="1dp"
         android:background="#9E9595"/>
     <Button
+        android:id="@+id/btn_setting_leave"
         android:layout_marginTop="20dp"
         android:text="退出登录"
         android:background="#f00"

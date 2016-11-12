@@ -40,24 +40,50 @@
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
                 android:layout_width="85dp"
-                android:layout_height="116dp">
+                android:layout_height="136dp">
                 <com.example.dllo.foodpie.weiget.CircleImageView
+                    android:id="@+id/img_my_person_icon"
                     android:src="@mipmap/ic_analyse_default"
                     app:isCircle="true"
                     app:border_color = "#f1f"
                     app:border_width="2dp"
                     android:layout_width="80dp"
                     android:layout_height="80dp"/>
-                <Button
-                    android:id="@+id/btn_my_to_load"
+                <TextView
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:id="@+id/tv_my_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+                <RelativeLayout
                     android:layout_gravity="center"
                     android:layout_marginTop="4dp"
-                    android:text="点击登录"
-                    android:textSize="15sp"
-                    android:textColor="#FFFF"
-                    android:background="@drawable/buttonstyle"
                     android:layout_width="70dp"
-                    android:layout_height="32dp"/>
+                    android:layout_height="32dp">
+
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/btn_my_change"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:text="修改资料"
+                        android:textSize="15sp"
+                        android:textColor="#FFFF"
+                        android:background="@drawable/buttonstyle"
+                        android:layout_width="70dp"
+                        android:layout_height="32dp"/>
+                    <Button
+                        android:id="@+id/btn_my_to_load"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:text="点击登录"
+                        android:textSize="15sp"
+                        android:textColor="#FFFF"
+                        android:background="@drawable/buttonstyle"
+                        android:layout_width="70dp"
+                        android:layout_height="32dp"/>
+                </RelativeLayout>
+
             </LinearLayout>
 
     </RelativeLayout>

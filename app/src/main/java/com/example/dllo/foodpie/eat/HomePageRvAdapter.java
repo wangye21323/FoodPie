@@ -78,7 +78,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
                 holder.ll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onClickItem.onClick(arrayList.getFeeds().get(position).getLink());
+                        onClickItem.onClick(arrayList.getFeeds().get(position).getLink(), arrayList.getFeeds().get(position).getTitle());
                     }
                 });
                 break;
@@ -96,7 +96,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
                 holder.rl.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onClickItem.onClick(String.valueOf(arrayList.getFeeds().get(position).getItem_id()));
+                        onClickItem.onClick(String.valueOf(arrayList.getFeeds().get(position).getItem_id()), arrayList.getFeeds().get(position).getTitle());
                         }
                 });
                 break;
