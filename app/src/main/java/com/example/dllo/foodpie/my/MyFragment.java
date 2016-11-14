@@ -97,4 +97,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             imgIcon.setImageResource(R.mipmap.ic_analyse_default);
         }
     }
+
+
+
 }
