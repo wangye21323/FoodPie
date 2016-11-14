@@ -65,7 +65,6 @@ public class MainActivity extends BaseActivity {
         transaction.replace(R.id.frame_main, foodFragment);
         transaction.commit();
 
-
         //首页的下方RadioButton的点击切换
         rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

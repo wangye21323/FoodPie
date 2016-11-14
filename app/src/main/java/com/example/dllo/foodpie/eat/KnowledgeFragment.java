@@ -132,6 +132,7 @@ public class KnowledgeFragment extends BaseFragment implements OnClickItem {
         Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
         intent.putExtra("Web", link);
         intent.putExtra("Text","咨询详情");
+        intent.putExtra("Title", title);
         startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.dllo.foodpie.collect;
 
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -46,5 +47,8 @@ public class CollectActivity extends BaseActivity{
                 finish();
             }
         });
+
+        tab.setSelectedTabIndicatorColor(Color.RED);
+        tab.setTabTextColors(Color.GRAY, Color.RED);
     }
 }

@@ -127,6 +127,7 @@ public class HomePageFragment extends BaseFragment implements OnClickItem {
         if (link.length() > 6){
             Intent intent = new Intent(MyApp.getContext(), DescriptionActivity.class);
             intent.putExtra("Web", link);
+            intent.putExtra("Title", title);
             intent.putExtra("Text","图片详情");
             startActivity(intent);
         }else{

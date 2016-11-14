@@ -60,12 +60,15 @@
             android:name=".food.AnalyzeActivity"
             android:theme="@style/customTitle">
         </activity>
-        <activity android:name=".LogonActivity"
-                  android:theme="@style/customTitle">
+        <activity
+            android:name=".LogonActivity"
+            android:theme="@style/customTitle">
         </activity>
-        <activity android:name=".collect.CollectActivity"
-                  android:theme="@style/customTitle">
-
+        <activity
+            android:name=".collect.CollectActivity"
+            android:theme="@style/customTitle">
+        </activity>
+        <activity android:name=".food.SweepActivity">
         </activity>
     </application>
 

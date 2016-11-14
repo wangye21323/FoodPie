@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +29,7 @@ public class HomePageDescriptionActivity extends BaseActivity implements View.On
     private TextView tvDescriptionData;
     private String urlImg;
     private String urlUser;
-    private ImageButton iBtnBack;
+    private ImageView iBtnBack;
     private String nowTimeFact;
 
     //手指向右滑动时的最小速度

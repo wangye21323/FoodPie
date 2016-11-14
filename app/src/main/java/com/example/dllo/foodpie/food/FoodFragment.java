@@ -34,6 +34,7 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
     private RelativeLayout search;
     private LinearLayout llAnalyze;
     private String user;
+    private LinearLayout llSweep;
 
     @Override
     protected int getLayout() {
@@ -48,6 +49,8 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
         adapterType = new FoodAdapter(getActivity());
         adapterBrand = new FoodAdapter(getActivity());
         adapterChain = new FoodAdapter(getActivity());
+
+        llSweep = bindView(R.id.ll_food_sweep);
 
         search = bindView(R.id.rl_food_search);
         search.setOnClickListener(this);
@@ -97,6 +100,13 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
         adapterChain.setOnClickFoodListener(this);
 
 
+        llSweep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SweepActivity.class);
+                startActivityForResult(intent, 100);
+            }
+        });
 
     }
 
@@ -120,4 +130,5 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
         Intent intent = new Intent(getActivity(), SearchActivity.class);
         startActivity(intent);
     }
+
 }

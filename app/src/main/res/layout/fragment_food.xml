@@ -84,7 +84,7 @@
                     android:background="#fff"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -111,7 +111,7 @@
                     android:background="#fff"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -132,13 +132,14 @@
                     android:background="#9E9595"/>
 
                 <LinearLayout
+                    android:id="@+id/ll_food_sweep"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

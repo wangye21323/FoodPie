@@ -17,6 +17,8 @@ import com.example.dllo.foodpie.base.BaseActivity;
 import com.example.dllo.foodpie.databean.CollectBean;
 import com.example.dllo.foodpie.dbtool.CollectDBTool;
 
+import java.util.List;
+
 public class DescriptionActivity extends BaseActivity implements View.OnTouchListener {
 
     private WebView webView;
@@ -49,6 +51,14 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
 
     @Override
     protected void initViews() {
+
+        Intent intent = getIntent();
+        urlIntent = intent.getStringExtra("Web");
+        text = intent.getStringExtra("Text");
+        title = intent.getStringExtra("Title");
+
+
+
         webView = bindView(R.id.wv_eat);
         webView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -77,28 +87,38 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
                     bean.setTitle(title);
                     bean.setUrl(urlIntent);
                     CollectDBTool.getInstance().insertCollectBean(bean);
-//                    String title1 = CollectDBTool.getInstance().queryByIdCollectBean(title, CollectBean.class);
                     isClick = !isClick;
                 }else{
                     tvCollect.setSelected(false);
                     tvCollect.setText("收藏");
                     imgHeart.setImageResource(R.mipmap.ic_favorate_unchecked);
-                    CollectDBTool.getInstance().deleteCollectBean(CollectBean.class);
+                    CollectDBTool.getInstance().deleteValueBean(CollectBean.class,"title",new String[]{title});
                     isClick = !isClick;
                 }
 
             }
         });
+         CollectDBTool.getInstance().queryByValuesCollectBean(CollectBean.class, "title", new String[]{title}, new CollectDBTool.OnQueryListener() {
+             @Override
+             public void onQuery(List<CollectBean> collectBean) {
+                 if (collectBean.size() > 0){
+                     imgHeart.setImageResource(R.mipmap.ic_favorate_checked);
+                     tvCollect.setText("已收藏");
+                     tvCollect.setSelected(true);
+                 }else {
+                     tvCollect.setSelected(false);
+                     tvCollect.setText("收藏");
+                     imgHeart.setImageResource(R.mipmap.ic_favorate_unchecked);
+                 }
+             }
+         });
+
+
     }
 
     @Override
     protected void initDate() {
-        Intent intent = getIntent();
-        urlIntent = intent.getStringExtra("Web");
-        text = intent.getStringExtra("Text");
-        title = intent.getStringExtra("Title");
         tvDescription.setText(text);
-
         webView.loadUrl(urlIntent);
         webView.setWebViewClient(new WebViewClient() {
             @Override
