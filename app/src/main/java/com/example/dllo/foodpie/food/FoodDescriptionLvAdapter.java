@@ -42,6 +42,9 @@ public class FoodDescriptionLvAdapter extends BaseAdapter {
         return foodDescriptionBean.getFoods() == null ? 0 : foodDescriptionBean.getFoods().size();
     }
 
+    public FoodDescriptionBean getItemMessage(){
+        return foodDescriptionBean;
+    }
     @Override
     public Object getItem(int position) {
         return foodDescriptionBean.getFoods().get(position);

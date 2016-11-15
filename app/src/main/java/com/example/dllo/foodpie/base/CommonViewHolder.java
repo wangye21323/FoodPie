@@ -77,7 +77,6 @@ public class CommonViewHolder extends RecyclerView.ViewHolder{
     }
     public CommonViewHolder setImage(int id, String url){
         ImageView imageView = getView(id);
-        // TODO: 16/10/31 网络请求图片
         return this;
     }
 

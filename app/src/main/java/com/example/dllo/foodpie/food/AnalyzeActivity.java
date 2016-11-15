@@ -3,7 +3,6 @@ package com.example.dllo.foodpie.food;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +16,7 @@ import com.example.dllo.foodpie.base.MyApp;
 import com.example.dllo.foodpie.databean.EventAnalyzeBean;
 import com.example.dllo.foodpie.databean.FoodAnalyzeBean;
 import com.example.dllo.foodpie.web.GsonRequest;
+import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -70,16 +70,42 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
     protected void initDate() {
         //注册eventBus
         EventBus.getDefault().register(this);
+        Intent intent = getIntent();
+        //在食物百科的三级页面点击对比时的食物对比
+        String codeAll = intent.getStringExtra("Code");
+        if (codeAll != null) {
+            String urlAll = TheValues.FOOD_ANALYZE_BEFORE + codeAll + TheValues.FOOD_ANALYZE_AFTER;
+            GsonRequest<FoodAnalyzeBean> gsonRequest = new GsonRequest<FoodAnalyzeBean>(FoodAnalyzeBean.class, urlAll,
+                    new Response.Listener<FoodAnalyzeBean>() {
+                        @Override
+                        public void onResponse(FoodAnalyzeBean response) {
+                            tvLeft.setText(name);
+                            //清空按键的显现
+                            imgDelLeft.setVisibility(View.VISIBLE);
+                            //设置img为不可点击状态
+                            imgAddLeft.setEnabled(false);
+                            //给adapter传值, 带上属性左右
+                            adapter.setFoodAnalyzeBean("Left", response);
+                            GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(), 1);
+                            rv.setLayoutManager(manager);
+                            VolleySingleton.getInstance().getImage(response.getLarge_image_url(), imgAddLeft);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            VolleySingleton.getInstance().addRequest(gsonRequest);
+        }
+
     }
 
+    //eventBus传值带回来的额值
     private void initAnalyzeWeb() {
-        String imgUrl = "http://food.boohee.com/fb/v1/foods/" + code + "/brief?token=&user_key=&app_version=2.6";
-        Log.d("AnalyzeActivity11", imgUrl);
+        String imgUrl = TheValues.FOOD_ANALYZE_BEFORE + code + TheValues.FOOD_ANALYZE_AFTER;
         initAnalyzeData(imgUrl);
-
     }
-
-
     private void initAnalyzeData(String url) {
         GsonRequest<FoodAnalyzeBean> gsonRequest = new GsonRequest<FoodAnalyzeBean>(FoodAnalyzeBean.class, url,
                 new Response.Listener<FoodAnalyzeBean>() {
@@ -92,7 +118,7 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
                             //设置img为不可点击状态
                             imgAddLeft.setEnabled(false);
                             //给adapter传值, 带上属性左右
-                            adapter.setFoodAnalyzeBean("Left",response);
+                            adapter.setFoodAnalyzeBean("Left", response);
                             GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(), 1);
                             rv.setLayoutManager(manager);
                             VolleySingleton.getInstance().getImage(response.getLarge_image_url(), imgAddLeft);
@@ -100,7 +126,7 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
                             imgDelRight.setVisibility(View.VISIBLE);
                             tvRight.setText(name);
                             imgAddRight.setEnabled(false);
-                            adapter.setFoodAnalyzeBean("Right",response);
+                            adapter.setFoodAnalyzeBean("Right", response);
                             GridLayoutManager manager = new GridLayoutManager(MyApp.getContext(), 1);
                             rv.setLayoutManager(manager);
                             VolleySingleton.getInstance().getImage(response.getLarge_image_url(), imgAddRight);
@@ -119,6 +145,7 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_food_analyze_add_left:
+                //点击跳转
                 Intent intentLeft = new Intent(this, SearchActivity.class);
                 intentLeft.putExtra("analyze", "analyzeL");
                 startActivity(intentLeft);
@@ -152,14 +179,16 @@ public class AnalyzeActivity extends BaseActivity implements View.OnClickListene
 
     //eventBus 接收第一个界面点击常用时带过来的值
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void eventSetText(EventAnalyzeBean analyzeBean){
+    public void eventSetText(EventAnalyzeBean analyzeBean) {
         text = analyzeBean.getText();
         code = analyzeBean.getCode();
         name = analyzeBean.getName();
         if (code != null) {
+            //当前页面的网络请求, 根据传过来的是左还是右
             initAnalyzeWeb();
         }
     }
+
     //解绑
     @Override
     protected void onDestroy() {

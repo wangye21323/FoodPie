@@ -1,7 +1,6 @@
 package com.example.dllo.foodpie.food;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -137,30 +136,10 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
                 startActivity(intent);
                 break;
             case R.id.ll_food_sweep:
-                Intent intent1 = new Intent(getActivity(), ScanActivity.class);
-                startActivityForResult(intent1, REQUEST_CODE);
+
                 break;
         }
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE && resultCode == ScanActivity.RESULT_CODE) {
-
-            if (data != null) {
-                Bundle bundle = data.getBundleExtra("bundle");
-                String result = bundle.getString(ScanActivity.SCAN_RESULT_KEY);
-
-
-//                resultTV.setText(result);
-            } else {
-//                resultTV.setText("返回的数据为空!");
-            }
-
-        }
-
-    }
 }

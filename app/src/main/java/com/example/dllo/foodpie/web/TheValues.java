@@ -58,7 +58,10 @@ public final class TheValues {
      * POP界面的点击和第一次进入加载的前半段是一样的
      */
 
-
+//-------------------------------------------------------------------
+    //食物百科--对比界面--当前返回的时候的网络请求
+    public static String FOOD_ANALYZE_BEFORE = "http://food.boohee.com/fb/v1/foods/";
+    public static String FOOD_ANALYZE_AFTER = "/brief?token=&user_key=&app_version=2.6";
 
 
 }

@@ -5,11 +5,13 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,7 +39,7 @@ import java.util.List;
 /**
  * Created by dllo on 16/10/31.
  */
-public class FoodDescriptionActivity extends BaseActivity implements View.OnTouchListener, OnClickPopRight, OnClickPopLeftListener {
+public class FoodDescriptionActivity extends BaseActivity implements View.OnTouchListener, OnClickPopRight, OnClickPopLeftListener, AdapterView.OnItemClickListener {
 
     private PullToRefreshListView lvFood;
     private FoodDescriptionLvAdapter adapter;
@@ -221,6 +223,8 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
                 }
             }
         });
+
+
     }
 
     private void initPopupRight() {
@@ -318,6 +322,8 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
 
 
         adapterPop.setOnClickPopLeftListener(this);
+        //点击进入下级界面
+        lvFood.setOnItemClickListener(this);
     }
 
     //popWindow页面的网络请求
@@ -465,5 +471,14 @@ public class FoodDescriptionActivity extends BaseActivity implements View.OnTouc
             }
         });
         VolleySingleton.getInstance().addRequest(gsonRequest);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        FoodDescriptionBean bean = adapter.getItemMessage();
+        Log.d("FoodDescriptionActivity", bean.getFoods().get(position - 1).getCode());
+        Intent intent = new Intent(FoodDescriptionActivity.this, FoodAllActivity.class);
+        intent.putExtra("Code",bean.getFoods().get(position - 1).getCode());
+        startActivity(intent);
     }
 }

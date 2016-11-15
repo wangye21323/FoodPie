@@ -106,7 +106,9 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".food.ScanActivity">
+        <activity android:name=".food.FoodAllActivity"
+                  android:theme="@style/customTitle">
+
         </activity>
     </application>
 

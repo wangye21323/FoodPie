@@ -77,7 +77,6 @@ public class FoodAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                // TODO: 16/11/4 周末应该做, listview是有自己的点击事件的
                 String name = foodBean.getGroup().get(group).getCategories().get(position).getName();
                 int id = foodBean.getGroup().get(group).getCategories().get(position).getId();
                 List<FoodBean.GroupBean.CategoriesBean.SubCategoriesBean> been = foodBean.getGroup().get(group).getCategories().get(position).getSub_categories();

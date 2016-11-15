@@ -201,7 +201,7 @@ public class ResultFragment extends BaseFragment implements OnClickPopLeftListen
         }
         //点击搜索时的网络请求, 首次进入第二个界面的显示
         String url = TheValues.FOOD_SEARCH_SECOND_LV_BEFORE + UTF;
-        // TODO: 16/11/10 在这里接收一个值, 判断进来的是那一次的点击
+
         //开启帧动画
         if (!flag) {
             animation.setVisibility(View.VISIBLE);

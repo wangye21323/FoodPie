@@ -54,7 +54,6 @@ public class LoadActivity extends BaseActivity {
         btnLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 16/11/12 判断是是否是登录状态
                 BmobUser bmobUser = BmobUser.getCurrentUser();
                 if (bmobUser != null){
                     Toast.makeText(LoadActivity.this, "已经登录", Toast.LENGTH_SHORT).show();
