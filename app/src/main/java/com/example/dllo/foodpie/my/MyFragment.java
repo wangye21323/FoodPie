@@ -89,7 +89,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             tvUserName.setText(bmobUser.getUsername());
             btnLoad.setVisibility(View.GONE);
             btnChange.setVisibility(View.VISIBLE);
-            imgIcon.setImageResource(R.mipmap.liushishi);
+            imgIcon.setImageResource(R.mipmap.zhouyunxiao);
         }else {
             tvUserName.setVisibility(View.INVISIBLE);
             btnChange.setVisibility(View.INVISIBLE);

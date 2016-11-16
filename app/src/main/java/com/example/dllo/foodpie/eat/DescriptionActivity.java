@@ -56,7 +56,7 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
     @Override
     protected void initViews() {
         //shareSDK初始化
-        ShareSDK.initSDK(this,"19022e5061744");
+        ShareSDK.initSDK(this, "19022e5061744");
 
         Intent intent = getIntent();
         urlIntent = intent.getStringExtra("Web");
@@ -64,12 +64,11 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
         title = intent.getStringExtra("Title");
 
 
-
         webView = bindView(R.id.wv_eat);
         webView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                DescriptionActivity.this.onTouch(v,event);
+                DescriptionActivity.this.onTouch(v, event);
                 Log.d("DescriptionActivity", "webView");
                 return false;
             }
@@ -87,7 +86,7 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
         rlShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isClick){
+                if (!isClick) {
                     imgHeart.setImageResource(R.mipmap.ic_favorate_checked);
                     tvCollect.setText("已收藏");
                     tvCollect.setSelected(true);
@@ -96,30 +95,32 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
                     bean.setUrl(urlIntent);
                     CollectDBTool.getInstance().insertCollectBean(bean);
                     isClick = !isClick;
-                }else{
+                } else {
                     tvCollect.setSelected(false);
                     tvCollect.setText("收藏");
                     imgHeart.setImageResource(R.mipmap.ic_favorate_unchecked);
-                    CollectDBTool.getInstance().deleteValueBean(CollectBean.class,"title",new String[]{title});
+                    CollectDBTool.getInstance().deleteValueBean(CollectBean.class, "title", new String[]{title});
                     isClick = !isClick;
                 }
 
             }
         });
-         CollectDBTool.getInstance().queryByValuesCollectBean(CollectBean.class, "title", new String[]{title}, new CollectDBTool.OnQueryListener() {
-             @Override
-             public void onQuery(List<CollectBean> collectBean) {
-                 if (collectBean.size() > 0){
-                     imgHeart.setImageResource(R.mipmap.ic_favorate_checked);
-                     tvCollect.setText("已收藏");
-                     tvCollect.setSelected(true);
-                 }else {
-                     tvCollect.setSelected(false);
-                     tvCollect.setText("收藏");
-                     imgHeart.setImageResource(R.mipmap.ic_favorate_unchecked);
-                 }
-             }
-         });
+        //首次进入这个界面的时候, 判断是不是收藏过了, 是就显示红的
+        CollectDBTool.getInstance().queryByValuesCollectBean(CollectBean.class, "title", new String[]{title}, new CollectDBTool.OnQueryListener() {
+            @Override
+            public void onQuery(List<CollectBean> collectBean) {
+                if (collectBean.size() > 0) {
+                    imgHeart.setImageResource(R.mipmap.ic_favorate_checked);
+                    tvCollect.setText("已收藏");
+                    tvCollect.setSelected(true);
+                    isClick = !isClick;
+                } else {
+                    tvCollect.setSelected(false);
+                    tvCollect.setText("收藏");
+                    imgHeart.setImageResource(R.mipmap.ic_favorate_unchecked);
+                }
+            }
+        });
 
 
         rlCollect.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +166,7 @@ public class DescriptionActivity extends BaseActivity implements View.OnTouchLis
                 xMove = event.getRawX();
                 int distanceX = (int) (xMove - xDown);
                 int xSpeed = getScrollVelocity();
-                if(distanceX > XDISTANCE_MIN && xSpeed > XSPEED_MIN) {
+                if (distanceX > XDISTANCE_MIN && xSpeed > XSPEED_MIN) {
                     finish();
                     overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
                 }

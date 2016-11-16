@@ -13,6 +13,15 @@ public class FoodAllDbBean {
     private String large_image_url;
     private String name;
     private String calory;
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getCalory() {
         return calory;

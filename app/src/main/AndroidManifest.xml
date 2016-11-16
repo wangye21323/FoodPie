@@ -80,8 +80,6 @@
             android:name=".collect.CollectActivity"
             android:theme="@style/customTitle">
         </activity>
-        <activity android:name=".food.SweepActivity">
-        </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

@@ -2,6 +2,7 @@ package com.example.dllo.foodpie.food;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +20,8 @@ import com.example.dllo.foodpie.web.TheValues;
 import com.example.dllo.foodpie.web.VolleySingleton;
 import com.example.dllo.foodpie.weiget.CircleImageView;
 
+import java.util.List;
+
 
 public class FoodAllActivity extends BaseActivity implements View.OnClickListener {
 
@@ -34,8 +37,12 @@ public class FoodAllActivity extends BaseActivity implements View.OnClickListene
     private TextView tvJiao;
     private TextView tvUnit;
     private boolean isClick = false;
+    private boolean isSelect = false;
     private ImageView imgBack;
     private ImageView imgHeart;
+    private String iconUrl;
+    private String name;
+    private String num;
 
     @Override
     protected int getLayout() {
@@ -46,6 +53,7 @@ public class FoodAllActivity extends BaseActivity implements View.OnClickListene
     protected void initViews() {
         Intent intent = getIntent();
         code = intent.getStringExtra("Code");//拼接网址
+        Log.d("FoodAllActivity123", code);
         tvTitle = bindView(R.id.tv_food_collect_back_name);//标题的名字
         imgIcon = bindView(R.id.img_food_all_food);
         tvName = bindView(R.id.tv_food_all_name);
@@ -54,7 +62,7 @@ public class FoodAllActivity extends BaseActivity implements View.OnClickListene
         tvBody = bindView(R.id.tv_food_all_text);
         btnCompare = bindView(R.id.btn_food_all_compare);
         imgBack = bindView(R.id.img_food_all_img1);
-
+        imgBack.setOnClickListener(this);
         tvKa = bindView(R.id.tv_food_all_ka);
         tvKa.setOnClickListener(this);
         tvJiao = bindView(R.id.tv_food_all_jiao);
@@ -71,16 +79,19 @@ public class FoodAllActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initDate() {
         String url = TheValues.FOOD_ANALYZE_BEFORE + code;
+        //进入三级界面的网络请求
         GsonRequest<FoodAllBean> gsonRequest = new GsonRequest<FoodAllBean>(FoodAllBean.class, url,
                 new Response.Listener<FoodAllBean>() {
                     @Override
                     public void onResponse(FoodAllBean response) {
                         //请求成功数据
                         tvTitle.setText(response.getName());
-                        VolleySingleton.getInstance().getImage(response.getLarge_image_url(), imgIcon);
-                        tvName.setText(response.getName());
-                        tvNum.setText(response.getCalory());
-
+                        iconUrl = response.getLarge_image_url();
+                        VolleySingleton.getInstance().getImage(iconUrl, imgIcon);
+                        name = response.getName();
+                        tvName.setText(name);
+                        num = response.getCalory();
+                        tvNum.setText(num);
                         tvBody.setText(response.getAppraise());
                         switch (response.getHealth_light()) {
                             case 0:
@@ -112,6 +123,19 @@ public class FoodAllActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
             }
         });
+
+        //首次进入, 根据是否数据库有这个内容, 判断心是亮的还是暗的
+        FoodAllDBTool.getInstance().queryByValuesFoodAllDbBean(FoodAllDbBean.class, "code", new String[]{code}, new FoodAllDBTool.OnQueryListener() {
+            @Override
+            public void onQuery(List<FoodAllDbBean> foodAllDbBean) {
+                if (foodAllDbBean.size() > 0){
+                    imgHeart.setImageResource(R.mipmap.ic_favorate_checked);
+                    isSelect = !isSelect;
+                }else {
+                    imgHeart.setImageResource(R.mipmap.ic_favorate_unchecked);
+                }
+            }
+        });
     }
 
     @Override
@@ -139,12 +163,23 @@ public class FoodAllActivity extends BaseActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.img_food_all_heart:
-                imgHeart.setImageResource(R.mipmap.ic_favorate_checked);
-                FoodAllDbBean bean = new FoodAllDbBean();
-                bean.setName(tvName.toString());
-                bean.setLarge_image_url(imgIcon.toString());
-                bean.setCalory(tvNum.toString());
-                FoodAllDBTool.getInstance().insertFoodAllDbBean(bean);
+                if (!isSelect) {
+                    //当点击收藏的时候完成的操作
+                    imgHeart.setImageResource(R.mipmap.ic_favorate_checked);
+                    FoodAllDbBean bean = new FoodAllDbBean();
+                    bean.setName(name);
+                    bean.setLarge_image_url(iconUrl);
+                    bean.setCalory(num);
+                    bean.setCode(code);
+                    //存入数据库
+                    FoodAllDBTool.getInstance().insertFoodAllDbBean(bean);
+                    isSelect = !isSelect;
+                }else {
+                    //把数据库的内容按照value值删除
+                    FoodAllDBTool.getInstance().deleteValueBean(FoodAllDbBean.class,"name",new String[]{tvName.getText().toString()});
+                    imgHeart.setImageResource(R.mipmap.ic_favorate_unchecked);
+                    isSelect = !isSelect;
+                }
                 break;
         }
     }

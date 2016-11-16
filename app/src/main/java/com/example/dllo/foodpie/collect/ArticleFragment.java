@@ -51,6 +51,7 @@ public class ArticleFragment extends BaseFragment{
                     been.add(bean);
                 }
                 adapter.setBeanArrayList(been);
+                //判断当前页是否有数据, 有数据那么把图标隐藏
                 if (been.size() != 0){
                     imgEmpty.setVisibility(View.GONE);
                     tv.setVisibility(View.GONE);

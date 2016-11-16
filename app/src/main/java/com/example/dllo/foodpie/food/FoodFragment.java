@@ -103,14 +103,6 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
         adapterChain.setOnClickFoodListener(this);
 
 
-        llSweep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SweepActivity.class);
-                startActivityForResult(intent, 100);
-            }
-        });
-
     }
 
 
@@ -134,9 +126,6 @@ public class FoodFragment extends BaseFragment implements OnClickFoodListener, V
             case R.id.rl_food_search:
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.ll_food_sweep:
-
                 break;
         }
 

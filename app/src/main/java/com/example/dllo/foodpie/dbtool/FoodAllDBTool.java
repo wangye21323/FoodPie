@@ -85,8 +85,7 @@ public class FoodAllDBTool {
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-                List<FoodAllDbBean> data = liteOrm.query(new QueryBuilder(foodAllDbBean).
-                        where(field + "= ?", value));
+                List<FoodAllDbBean> data = liteOrm.query(new QueryBuilder(foodAllDbBean).where(field + "= ?", value));
                 onQueryListener.onQuery(data);
             }
         });

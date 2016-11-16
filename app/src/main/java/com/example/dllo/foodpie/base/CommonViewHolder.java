@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dllo.foodpie.web.VolleySingleton;
+
 /**
  * Created by dllo on 16/10/31.
  * 通用的ViewHolder
@@ -77,6 +79,7 @@ public class CommonViewHolder extends RecyclerView.ViewHolder{
     }
     public CommonViewHolder setImage(int id, String url){
         ImageView imageView = getView(id);
+        VolleySingleton.getInstance().getImage(url, imageView);
         return this;
     }
 
